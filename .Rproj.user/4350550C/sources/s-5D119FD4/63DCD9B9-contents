@@ -1,0 +1,10 @@
+library(tidyverse)
+dat = read.csv("../GeneWiz2018/Sequencing_Stats.csv")
+
+glimpse(dat)
+dat = dat[order(dat$X..Reads),]
+plot(dat$X..Reads)
+summary(dat$X..Reads)
+bad.samples = dat$Sample.ID[which(dat$X..Reads < 500)]
+
+bad.samples[grep("WS",bad.samples)]

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547824876557.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EEFFBCAD",
+    "lastKnownWriteTime" : 1549310079,
+    "last_content_update" : 1550076020722,
+    "path" : "/Data/Ohia/Ohia_Analyses.R",
+    "project_path" : "Ohia_Analyses.R",
+    "properties" : {
+        "cursorPosition" : "368,0",
+        "scrollLine" : "351",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

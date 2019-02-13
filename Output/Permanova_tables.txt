@@ -1,0 +1,38 @@
+[1] additive model
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon +      sample_data(ps_ra)$Abaxial_Surface + sample_data(ps_ra)$Collection_Site) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                                    Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+sample_data(ps_ra)$Taxon             7     6.148 0.87833  2.0331 0.11566  0.001 ***
+sample_data(ps_ra)$Collection_Site   4     3.378 0.84456  1.9549 0.06355  0.001 ***
+Residuals                          101    43.634 0.43202         0.82080           
+Total                              112    53.160                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] 
+[1] 
+[1] 
+[1] multiplicative model
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon *      sample_data(ps_ra)$Abaxial_Surface * sample_data(ps_ra)$Collection_Site) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                                                             Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+sample_data(ps_ra)$Taxon                                      7     6.148 0.87833  2.0694 0.11566  0.001 ***
+sample_data(ps_ra)$Collection_Site                            4     3.378 0.84456  1.9898 0.06355  0.001 ***
+sample_data(ps_ra)$Taxon:sample_data(ps_ra)$Collection_Site   4     2.464 0.61601  1.4514 0.04635  0.001 ***
+Residuals                                                    97    41.170 0.42443         0.77445           
+Total                                                       112    53.160                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
