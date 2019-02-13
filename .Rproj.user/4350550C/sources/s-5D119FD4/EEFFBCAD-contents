@@ -45,7 +45,64 @@ ps = subset_samples(ps, Taxon != "#N/A")
 # Remove any newly-empty samples ####
 ps <- prune_samples(sample_sums(ps) != 0, ps)
 
-sample_names(ps)
+# Host specificity ####
+host.specif = (specnumber(otu_table(ps),sample_data(ps)$Taxon,2))
+png("./Output/single-host_taxa_abundance.png")
+plot((taxa_sums(ps)[host.specif == 1]),main = "Abundance of taxa found in only a single host", ylab = "Absolute Abundance")
+dev.off()
+
+abundant.1host.taxa = which(taxa_sums(ps)[host.specif == 1] > 1000)
+host.specific.taxa = as.data.frame(tax_table(ps)[abundant.1host.taxa]) # names of taxa found on only one host with more than 1000 abs. abundance
+write.csv(host.specific.taxa, "./Output/host-sepcific_taxa.csv",quote = FALSE,row.names = FALSE)
+
+# count number of taxa that are host-specific in each sample
+hstaxa = specnumber(otu_table(ps), sample_data(ps)$Taxon,2)
+hstaxa = which(hstaxa == 1)
+hsotus = otu_table(ps)[,hstaxa]
+heatmap(hsotus)
+hsotus[hsotus > 0] <- 1
+
+# save to list
+
+# repeat with new 3 random trees (x10)
+
+
+# anova does tree taxon affect number of host-specific fungi found?
+hsotus = hsotus[,taxa_sums(hsotus) > 1]
+sample_sums(hsotus)
+meta2 = meta[meta$IDENT %in% sample_data(ps_ra)$IDENT,]
+
+# get number of reps in each taxon
+tree.reps = meta2 %>%
+  dplyr::group_by(Taxon) %>%
+  dplyr::summarise(N=n())
+
+meta2$reps = as.numeric(as.character(plyr::mapvalues(meta2$Taxon, from = tree.reps$Taxon, to = tree.reps$N)))
+
+mod = aov(sample_sums(hsotus) ~ sample_data(ps)$ALTITUDE * sample_data(ps)$Taxon * meta2$reps)
+summary(mod) # no...almost?
+
+
+
+plot(sample_sums(hsotus) ~ sample_data(ps)$Taxon)
+
+sink("./Output/host-specificity_anova_table.txt")
+noquote(print("Prevalence of host-specific fungi"))
+noquote(print(""))
+noquote(print(""))
+noquote(print("Model includes Ohia taxon, Altitude, and number of replicate trees."))
+noquote(print(""))
+summary(mod)
+sink(NULL)
+
+# Change taxa names to remove rank tags
+tax_table(ps)[,"Kingdom"] <- str_remove(tax_table(ps)[,"Kingdom"],"k__")
+tax_table(ps)[,"Phylum"] <- str_remove(tax_table(ps)[,"Phylum"],"p__")
+tax_table(ps)[,"Order"] <- str_remove(tax_table(ps)[,"Order"],"o__")
+tax_table(ps)[,"Class"] <- str_remove(tax_table(ps)[,"Class"],"c__")
+tax_table(ps)[,"Family"] <- str_remove(tax_table(ps)[,"Family"],"f__")
+tax_table(ps)[,"Genus"] <- str_remove(tax_table(ps)[,"Genus"],"g__")
+tax_table(ps)[,"Species"] <- str_remove(tax_table(ps)[,"Species"],"s__")
 
 # Sanity check
 which(sample_sums(ps) == 0)
@@ -67,6 +124,11 @@ head(sample_data(psm))
 # relative abundance transformation ####
 psm_ra <- transform_sample_counts(psm, function(x) x / sum(x) )
 ps_ra <- transform_sample_counts(ps, function(x) x / sum(x) )
+
+
+# combine sites Wiliwilinui and Kuliouou
+newsites = plyr::mapvalues(ps@sam_data$Collection_Site, from = "Wiliwilinui", to = "Kuliouou")
+ps@sam_data$Collection_Site <- newsites
 
 
 # merge again by site
@@ -102,6 +164,8 @@ main_orders = (which(colSums(ps_order@otu_table) > 1000))
 
 df_order = as.data.frame(decostand(ps_order@otu_table,method = "total"))
 orderlabs = ps_order@tax_table@.Data[,"Order"]
+
+
 orderlabs = map(strsplit(orderlabs, "o__"),2)
 orderlabs = map(strsplit(as.character(orderlabs), "_ord_"),1)
 orderlabs = orderlabs[main_orders]
@@ -186,6 +250,8 @@ order_summary = summarize_taxa(ps,"Order","Elevation")
 order_summary = order_summary[order_summary$Order != "NA",]
 # reorder
 setorder(order_summary, -meanRA)
+
+
 # plot
 ggplot(order_summary, aes(x= meanRA, y=Order, facet=Elevation)) +
   geom_point() + geom_errorbarh(aes(xmin=meanRA-sdRA,xmax=meanRA+sdRA)) + labs(x="Relative Abundance") +
@@ -263,6 +329,11 @@ sample_data(ps_ra)$outliers <- row.names(sample_data(ps_ra)) %in% outliers
 meta$outliers <- row.names(sample_data(ps_ra)) %in% outliers
 adonis.3 = adonis(otu_table(ps_ra) ~ sample_data(ps_ra)$outliers)
 
+sink(file = "./Output/PermANOVA_PCA_outlier_community_differences.txt")
+adonis.3
+sink(NULL)
+
+
 samdat = as.data.frame(sample_data(ps_ra))
 mod2 = glm(outliers ~ Abaxial_Surface + Taxon + ALTITUDE + Collection_Site, family=binomial(link='logit'), data=meta)
 mod1 = aov(outliers ~ Abaxial_Surface, data=meta)
@@ -309,7 +380,7 @@ mantel.test = mantel.rtest(spatial.dist, comm.dist, nrepet = 9999)
  dev.off()
 
 # Rarefaction analyses ####
-rarecurve(ps@otu_table,label = FALSE)
+# rarecurve(ps@otu_table,label = FALSE)
 
 # Diversity analyses ####
 
@@ -317,7 +388,7 @@ shannon = diversity(ps@otu_table)
 
  write.csv(shannon, "./Output/Shannon_Diversity_by_Tree.csv", quote = FALSE)
 
-div_aov = aov(shannon ~ ps@sam_data$Taxon * ps@sam_data$ALTITUDE)
+div_aov = aov(shannon ~ ps@sam_data$Taxon * ps@sam_data$ALTITUDE + ps_ra@sam_data$outliers + meta2$reps)
  sink(file = "./Output/Stat-Tests.txt", append = TRUE)
  print("")
  print("Shannon Diversity ANOVA - Taxon*Altitude")
@@ -329,6 +400,7 @@ ggplot(mapping = aes(x=ps@sam_data$Taxon,y=shannon, fill = ps@sam_data$Taxon)) +
   theme(axis.text.x = element_text(angle=90))
  ggsave("./Output/Shannon_Diversity_by_Taxon.png", dpi=300)
 
+ 
 
 # Model comparisons for Shannon diversity as dependent variable ####
 
@@ -356,18 +428,6 @@ ggplot(mod, aes(x=Altitude,y=Shannon, color=Taxon)) +
   geom_point() + stat_smooth(se=FALSE, method = "lm") +
   theme_bw() + labs(x="Elevation (m)",y="Shannon Diversity")
  ggsave("Output/Diversity_vs_Altitude_w_Taxon.png", dpi=300)
-
-
- 
- 
- 
- 
- 
- # Taxonomy tables and qualitative analyses ####
-taxtab = sort(table(tax_table(ps)), decreasing = TRUE)
-head(taxtab, 30)
-
-
 
 
 

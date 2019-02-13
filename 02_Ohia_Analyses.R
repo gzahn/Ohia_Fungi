@@ -69,6 +69,11 @@ psm_ra <- transform_sample_counts(psm, function(x) x / sum(x) )
 ps_ra <- transform_sample_counts(ps, function(x) x / sum(x) )
 
 
+# combine sites Wiliwilinui and Kuliouou
+newsites = plyr::mapvalues(ps@sam_data$Collection_Site, from = "Wiliwilinui", to = "Kuliouou")
+ps@sam_data$Collection_Site <- newsites
+
+
 # merge again by site
 # Merge Samples by . . .    ####
 psm_site = merge_samples(ps, "Collection_Site")
@@ -309,7 +314,7 @@ mantel.test = mantel.rtest(spatial.dist, comm.dist, nrepet = 9999)
  dev.off()
 
 # Rarefaction analyses ####
-rarecurve(ps@otu_table,label = FALSE)
+# rarecurve(ps@otu_table,label = FALSE)
 
 # Diversity analyses ####
 
@@ -366,3 +371,8 @@ ggplot(mod, aes(x=Altitude,y=Shannon, color=Taxon)) +
  # Taxonomy tables and qualitative analyses ####
 taxtab = sort(table(tax_table(ps)), decreasing = TRUE)
 head(taxtab, 30)
+
+
+
+
+

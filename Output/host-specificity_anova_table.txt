@@ -1,0 +1,21 @@
+[1] "Prevalence of host-specific fungi"
+[1] Prevalence of host-specific fungi
+[1] ""
+[1] 
+[1] ""
+[1] 
+[1] "Model includes Ohia taxon, Altitude, and number of replicate trees."
+[1] Model includes Ohia taxon, Altitude, and number of replicate trees.
+[1] ""
+[1] 
+                                                          Df Sum Sq Mean Sq F value  Pr(>F)   
+sample_data(ps)$ALTITUDE                                   1    3.9    3.90   0.388 0.53496   
+sample_data(ps)$Taxon                                      7  162.3   23.18   2.308 0.03356 * 
+meta2$reps                                                 1    5.4    5.38   0.535 0.46648   
+sample_data(ps)$ALTITUDE:sample_data(ps)$Taxon             7  224.6   32.08   3.194 0.00481 **
+sample_data(ps)$ALTITUDE:meta2$reps                        1    2.2    2.25   0.224 0.63728   
+sample_data(ps)$Taxon:meta2$reps                           6   32.4    5.41   0.538 0.77758   
+sample_data(ps)$ALTITUDE:sample_data(ps)$Taxon:meta2$reps  6   17.1    2.85   0.284 0.94304   
+Residuals                                                 83  833.7   10.04                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
