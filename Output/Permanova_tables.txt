@@ -9,9 +9,9 @@ Number of permutations: 999
 Terms added sequentially (first to last)
 
                                     Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
-sample_data(ps_ra)$Taxon             7     6.148 0.87833  2.0331 0.11566  0.001 ***
-sample_data(ps_ra)$Collection_Site   4     3.378 0.84456  1.9549 0.06355  0.001 ***
-Residuals                          101    43.634 0.43202         0.82080           
+sample_data(ps_ra)$Taxon             7     6.148 0.87833  2.0326 0.11566  0.001 ***
+sample_data(ps_ra)$Collection_Site   3     2.936 0.97854  2.2645 0.05522  0.001 ***
+Residuals                          102    44.077 0.43212         0.82912           
 Total                              112    53.160                 1.00000           
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -30,8 +30,8 @@ Terms added sequentially (first to last)
 
                                                              Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
 sample_data(ps_ra)$Taxon                                      7     6.148 0.87833  2.0694 0.11566  0.001 ***
-sample_data(ps_ra)$Collection_Site                            4     3.378 0.84456  1.9898 0.06355  0.001 ***
-sample_data(ps_ra)$Taxon:sample_data(ps_ra)$Collection_Site   4     2.464 0.61601  1.4514 0.04635  0.002 ** 
+sample_data(ps_ra)$Collection_Site                            3     2.936 0.97854  2.3055 0.05522  0.001 ***
+sample_data(ps_ra)$Taxon:sample_data(ps_ra)$Collection_Site   5     2.907 0.58133  1.3697 0.05468  0.001 ***
 Residuals                                                    97    41.170 0.42443         0.77445           
 Total                                                       112    53.160                 1.00000           
 ---

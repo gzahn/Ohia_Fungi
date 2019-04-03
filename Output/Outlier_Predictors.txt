@@ -1,0 +1,36 @@
+
+Call:
+glm(formula = outliers ~ Abaxial_Surface + Taxon + ALTITUDE + 
+    Collection_Site, family = binomial(link = "logit"), data = meta2)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.4413  -0.9027  -0.5981   0.9808   2.4003  
+
+Coefficients: (1 not defined because of singularities)
+                             Estimate Std. Error z value Pr(>|z|)  
+(Intercept)                 5.592e-01  2.158e+00   0.259   0.7955  
+Abaxial_SurfacePubescent   -1.235e+01  1.193e+03  -0.010   0.9917  
+TaxonM.p. var. fakerug      1.340e+01  1.193e+03   0.011   0.9910  
+TaxonM.p. var. glaberrima   7.121e-01  1.266e+00   0.563   0.5737  
+TaxonM.p. var. incana       1.517e+01  1.193e+03   0.013   0.9899  
+TaxonM.p. var. microglab    2.634e+00  1.315e+00   2.004   0.0451 *
+TaxonM.p. var. orb          3.819e+00  1.497e+00   2.551   0.0107 *
+TaxonM. rugosa              1.378e+01  1.193e+03   0.012   0.9908  
+TaxonM. tremuloides                NA         NA      NA       NA  
+ALTITUDE                   -6.004e-03  3.747e-03  -1.602   0.1090  
+Collection_SiteKonahuanui   1.772e+00  1.143e+00   1.550   0.1211  
+Collection_SiteKuliouou    -7.980e-01  9.359e-01  -0.853   0.3938  
+Collection_SiteMt. Ka`ala   2.885e+00  2.083e+00   1.385   0.1661  
+Collection_SiteWiliwilinui  1.225e+00  1.249e+00   0.981   0.3268  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 136.50  on 112  degrees of freedom
+Residual deviance: 119.35  on 100  degrees of freedom
+AIC: 145.35
+
+Number of Fisher Scoring iterations: 15
+

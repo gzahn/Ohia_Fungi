@@ -1,0 +1,64 @@
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0021 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.9425822040 -0.0004848113  0.0043253054 
+
+
+
+
+
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0301 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.2617013100 -0.0007132609  0.0020881505 
+
+
+
+
+
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 1e-04 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+ 4.091292974 -0.000163023  0.003063663 
+
+
+
+
+
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0083 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.5478406583 0.0007456215 0.0023228151 
+[1] ""
