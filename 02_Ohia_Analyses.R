@@ -192,7 +192,8 @@ df = as.data.frame(otu_table(ps))
 df_pa = decostand(df,method = "pa")
 tree_richness = rowSums(df_pa)
 
-# write.csv(data.frame(TreeID = names(tree_richness), Richness = tree_richness), "./Output/Tree_Richness.csv", row.names = FALSE)  
+write.csv(data.frame(TreeID = names(tree_richness), Richness = tree_richness), "./Output/Tree_Richness.csv", row.names = FALSE)
+
   
 # heatmap of fungal orders for each sample
 ps_order = tax_glom(ps, "Order")
@@ -206,6 +207,7 @@ orderlabs = ps_order@tax_table@.Data[,"Order"]
 # orderlabs = map(strsplit(orderlabs, "o__"),2)
 # orderlabs = map(strsplit(as.character(orderlabs), "_ord_"),1)
 orderlabs = orderlabs[main_orders]
+orderlabs = str_remove(orderlabs,"_ord_Incertae_sedis")
 df_order = df_order[,main_orders]
 
 png("./Output/Heatmap_of_Order_by_Taxon.png",width = 8008, height = 8008, res = 300)
@@ -213,6 +215,10 @@ heatmap(as.matrix(df_order), labCol = orderlabs, col = gray.colors(50), Colv = N
         cexRow = 2,cexCol = 2)
 dev.off()
 
+png("./Output/Heatmap_of_Order_by_Tree.png",width = 8008, height = 8008, res = 300)
+heatmap(as.matrix(df_order), labCol = orderlabs, col = gray.colors(50), Colv = NA, margins=c(10,8),
+        cexRow = 2)
+dev.off()
 
  
  
@@ -510,7 +516,7 @@ ggsave("Output/Diversity_vs_Altitude_w_Taxon.png", dpi=300)
 
 
 
-# Plot host specificity against elevation ####
 
+# Richness
 
  
