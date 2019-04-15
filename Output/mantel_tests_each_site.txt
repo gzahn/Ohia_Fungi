@@ -295,3 +295,649 @@ Deg. of Freedom        1        7        4       100
 
 Residual standard error: 0.8324786
 Estimated effects may be unbalanced
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0025 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.9697769939 0.0003923052 0.0042080476 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0329 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.2199225842 -0.0001968154  0.0021458800 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 1e-04 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 4.0614865776 -0.0005111558  0.0031183610 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0075 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.5855844736 0.0001084947 0.0022789603 
+[1] ""
+[1] "Shannon"   "Altitude"  "Taxon"     "Site"      "Elevation" "Surface"  
+[1] "Model Selection for Shannon Diversity"
+            Df Sum Sq Mean Sq F value  Pr(>F)   
+Altitude     1   5.86   5.856   8.197 0.00515 **
+Taxon        7   5.58   0.796   1.115 0.36019   
+Site         4  11.63   2.906   4.068 0.00433 **
+Elevation    1   0.19   0.190   0.265 0.60763   
+Taxon:Site   3   0.53   0.176   0.247 0.86353   
+Residuals   96  68.58   0.714                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+             Df Sum Sq Mean Sq F value  Pr(>F)   
+Surface       1   3.37   3.375   4.760 0.03145 * 
+Taxon         6   5.51   0.918   1.294 0.26671   
+Site          4  11.87   2.967   4.185 0.00354 **
+Residuals   101  71.61   0.709                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+                      Df Sum Sq Mean Sq F value Pr(>F)  
+Surface                1   3.37   3.375   4.537 0.0358 *
+Site                   4   8.76   2.189   2.943 0.0244 *
+Altitude               1   2.55   2.555   3.435 0.0670 .
+Surface:Site           4   3.85   0.962   1.293 0.2785  
+Surface:Altitude       1   1.91   1.912   2.571 0.1123  
+Site:Altitude          4   2.01   0.504   0.677 0.6095  
+Surface:Site:Altitude  4   0.72   0.181   0.243 0.9134  
+Residuals             93  69.18   0.744                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "Stepwise AIC"
+Start:  AIC=-22.42
+Shannon ~ Altitude + Taxon * Site + Elevation + Surface
+
+
+Step:  AIC=-22.42
+Shannon ~ Altitude + Taxon + Site + Elevation + Taxon:Site
+
+
+Step:  AIC=-22.42
+Shannon ~ Altitude + Taxon + Site + Taxon:Site
+
+             Df Sum of Sq    RSS     AIC
+- Taxon:Site  4   0.71823 69.302 -29.247
+- Altitude    1   0.00061 68.584 -24.423
+<none>                    68.584 -22.424
+
+Step:  AIC=-29.25
+Shannon ~ Altitude + Taxon + Site
+
+             Df Sum of Sq    RSS     AIC
+<none>                    69.302 -29.247
++ Elevation   1    0.1896 69.112 -27.557
+- Altitude    1    2.3084 71.610 -27.545
+- Taxon       7   10.7496 80.052 -26.953
++ Taxon:Site  4    0.7182 68.584 -22.424
+- Site        4   11.6259 80.928 -19.723
+Call:
+   aov(formula = Shannon ~ Altitude + Taxon + Site, data = mod)
+
+Terms:
+                Altitude    Taxon     Site Residuals
+Sum of Squares   5.85598  5.57536 11.62591  69.30206
+Deg. of Freedom        1        7        4       100
+
+Residual standard error: 0.8324786
+Estimated effects may be unbalanced
+                     CTCTGGGCGCCTACTCCAACCCTTTGTCTACCATACTTGTTGCTTTGGCGGGCCAGGTGCCCACGCACCGCCGGCTCAGGCTGGAGAGCGCCCGCCAGAGGATACAAAAACACTGCTCACTGTGTCATCTGAGTAAAAAA
+M. prostrata                                                                                                                                           0.53498787
+M.p. var. fakerug                                                                                                                                      0.68261837
+M.p. var. glaberrima                                                                                                                                   0.45939553
+M.p. var. incana                                                                                                                                       0.07934786
+M.p. var. microglab                                                                                                                                    0.32450884
+M.p. var. orb                                                                                                                                          0.79943211
+M. rugosa                                                                                                                                              0.65681481
+M. tremuloides                                                                                                                                         0.14064503
+                     TCTGGGGTAGACCTCCCACCCGTGTGTATTCTAATCAATTGTTGCTTTGGCGGGCCGCGAGCGTGCCTCGCCCGGAAGTCTCTCCCGGAGTGCCCGCCAGAGGAAACCCAAACTCTGAACATCAGTGTCGTCTGAGTATTATATAAATCGTTA
+M. prostrata                                                                                                                                                      0.2319462586
+M.p. var. fakerug                                                                                                                                                 0.0290022439
+M.p. var. glaberrima                                                                                                                                              0.0130091984
+M.p. var. incana                                                                                                                                                  0.2939831817
+M.p. var. microglab                                                                                                                                               0.1247412572
+M.p. var. orb                                                                                                                                                     0.0009364215
+M. rugosa                                                                                                                                                         0.2205390145
+M. tremuloides                                                                                                                                                    0.0042903639
+                     CCCGGGAGCCATCTCCACCCATTGAGTACCAACTTGTGTTGCTTTGGCGGCCGCGGCCCTGTCGCCACCGGCCCCGGCTGGTGAGCGCCCGCCAGAGGCCTTAAGTTCTTGATTGCAACGAGTCTGAGCGAGTGAATGAATGCGAAA
+M. prostrata                                                                                                                                                0.0000000000
+M.p. var. fakerug                                                                                                                                           0.0004976105
+M.p. var. glaberrima                                                                                                                                        0.0000000000
+M.p. var. incana                                                                                                                                            0.2691882615
+M.p. var. microglab                                                                                                                                         0.0022152014
+M.p. var. orb                                                                                                                                               0.0002945197
+M. rugosa                                                                                                                                                   0.0003347012
+M. tremuloides                                                                                                                                              0.0009369760
+                     GATGGTTGTAGCTGGTCTTCCAAAGACATGTGCACGCCTTCTCTTTCATCCACACACCCCTGTGCACTTGTTAGACGGATGATTGTTCCCTTTTATTAGGGACGGTTTCCGTCTGCTAACACATAAAACCATATTATTTAATTTGAATGTAATTGATGTAACGCATCTAATAC
+M. prostrata                                                                                                                                                                          0.0020526218
+M.p. var. fakerug                                                                                                                                                                     0.0008074435
+M.p. var. glaberrima                                                                                                                                                                  0.0271024967
+M.p. var. incana                                                                                                                                                                      0.2322910589
+M.p. var. microglab                                                                                                                                                                   0.0078803065
+M.p. var. orb                                                                                                                                                                         0.1357433601
+M. rugosa                                                                                                                                                                             0.0019354463
+M. tremuloides                                                                                                                                                                        0.0030081862
+                     TCCGACTTTTCTGGTGACCGATGCTAACGTTCTTTCCAGGTGAACCTGCGGAAGGATCATTAAAGAGTTAGGGTCTTCTAGGCCCGACCTCCCAACCCCATGTTTATTGAACCTTTGTTGCTTCGGCGGACCCGTCTCACGACCGCCGGAGGATCGCCTCACGGCGCCCTCTGGCCAGTGTCCGCCGATAGCCAACCCCTAAAACTCTGAATAAATCGTGTCGTATGTCTAAGTCTTGATTAAATTAAAGCA
+M. prostrata                                                                                                                                                                                                                                                         0.0026124277
+M.p. var. fakerug                                                                                                                                                                                                                                                    0.1741542968
+M.p. var. glaberrima                                                                                                                                                                                                                                                 0.1816688568
+M.p. var. incana                                                                                                                                                                                                                                                     0.0007345118
+M.p. var. microglab                                                                                                                                                                                                                                                  0.0139085594
+M.p. var. orb                                                                                                                                                                                                                                                        0.0041232754
+M. rugosa                                                                                                                                                                                                                                                            0.0053843243
+M. tremuloides                                                                                                                                                                                                                                                       0.0031561298
+                     CTTGTTCGCGGGTCGGGGGGCCCTTCGGGAGGCCCTGTCTGAACCCTATGTCATTGTCGCACCTCGCGTTTCCTCGGCGGGCTCGCCCGCCAACGAGGACCCCATACCAAACCCATTGCAGTATTGCAGTACACGTCTCACAAACAATCAATCA
+M. prostrata                                                                                                                                                        0.012129129
+M.p. var. fakerug                                                                                                                                                   0.051713940
+M.p. var. glaberrima                                                                                                                                                0.014520368
+M.p. var. incana                                                                                                                                                    0.056983010
+M.p. var. microglab                                                                                                                                                 0.004611977
+M.p. var. orb                                                                                                                                                       0.003383200
+M. rugosa                                                                                                                                                           0.003099625
+M. tremuloides                                                                                                                                                      0.012032745
+                     TCGGGGCCGTCTTCTACACCCTTTGTCTACCAACCTGGTGCCCGAATGCGGCCGTACCCTTCGGGGGCGGCACTGACGGCACCGCAACCTCTGGAGCAGATTGATACAATCGAATCCATACA
+M. prostrata                                                                                                                       0.0083970890
+M.p. var. fakerug                                                                                                                  0.0076613244
+M.p. var. glaberrima                                                                                                               0.0992444152
+M.p. var. incana                                                                                                                   0.0006178136
+M.p. var. microglab                                                                                                                0.2516977158
+M.p. var. orb                                                                                                                      0.0006419018
+M. rugosa                                                                                                                          0.0003347012
+M. tremuloides                                                                                                                     0.5560706184
+                     ACAACCCTTTGTGAACGTACCTAACCGTTGCTTCGGCGGGCAGGGGAAGCCTCTCGCGGGCGACCCCTCCCGGCGCCGGCCCCCACCACGGGGACGGAGCGCCCGCCGGAGGAAACCAAACTCTATTTACACGACGTCTCTTCTGAGTGGCACAAGCAAATAATTA
+M. prostrata                                                                                                                                                                   0.0000000000
+M.p. var. fakerug                                                                                                                                                              0.0002910552
+M.p. var. glaberrima                                                                                                                                                           0.0019053876
+M.p. var. incana                                                                                                                                                               0.0005011155
+M.p. var. microglab                                                                                                                                                            0.0021062570
+M.p. var. orb                                                                                                                                                                  0.0009515251
+M. rugosa                                                                                                                                                                      0.0274746064
+M. tremuloides                                                                                                                                                                 0.1986389190
+                     CCAAACCCCTGTGAACATACCTTAATGTTGCCTCGGCGGATCAGCCCGCGCCCGGTAAAACGGGACGGCCCGCCAGAGGATCCAAACTCTTGCTGTTATTGTAACTTCTGAGTAAAACAAACAAATAAATCA
+M. prostrata                                                                                                                                 0.0000000000
+M.p. var. fakerug                                                                                                                            0.0294153546
+M.p. var. glaberrima                                                                                                                         0.0010512484
+M.p. var. incana                                                                                                                             0.0256118071
+M.p. var. microglab                                                                                                                          0.0005447216
+M.p. var. orb                                                                                                                                0.0238258860
+M. rugosa                                                                                                                                    0.0042783550
+M. tremuloides                                                                                                                               0.0013314923
+                     TCCCAACCCATGTGAACTTACCTTTTGTTGCCTCGGCAGAAGTTATAGGTCTTCTTATAGCTGCTGCCGGTGGACCATTAAACTCTTGTTATTTTATGTAATCTGAGCGTCTTATTTTAATAAGTCA
+M. prostrata                                                                                                                             0.015487964
+M.p. var. fakerug                                                                                                                        0.014984649
+M.p. var. glaberrima                                                                                                                     0.081570302
+M.p. var. incana                                                                                                                         0.011299125
+M.p. var. microglab                                                                                                                      0.112575807
+M.p. var. orb                                                                                                                            0.011614647
+M. rugosa                                                                                                                                0.005369772
+M. tremuloides                                                                                                                           0.030525693
+                     TCGTATTCGATACTGAAGCTGCCCGGCAACGGGATGTGCTCGTGTCGGTGCGATGTCCCTTCACTATCCACCCCACTGTGAACCAAAGTGTGTGAGTCCGAAAGGGAGACCGGACGGCTTGCATGCGAACCTTTAACATACCCCAATGAAGTATCAGAATGTACCTTCGTTAACTCGCACAAATA
+M. prostrata                                                                                                                                                                                      0.000000e+00
+M.p. var. fakerug                                                                                                                                                                                 2.065553e-04
+M.p. var. glaberrima                                                                                                                                                                              0.000000e+00
+M.p. var. incana                                                                                                                                                                                  8.237515e-05
+M.p. var. microglab                                                                                                                                                                               1.089443e-04
+M.p. var. orb                                                                                                                                                                                     3.775893e-05
+M. rugosa                                                                                                                                                                                         4.872086e-02
+M. tremuloides                                                                                                                                                                                    1.972581e-04
+                     CAAGCCGGTTCTACCCACACACACCTGTGAACCGTATCTAGGACGCGGACTAGCCCCCGGGCGAAACCGTCCGAACTTTACAAAACGTCATAATGTCACGAACGTAGTCTTATTTTAACAAATA
+M. prostrata                                                                                                                         0.0492629222
+M.p. var. fakerug                                                                                                                    0.0009952211
+M.p. var. glaberrima                                                                                                                 0.0067017083
+M.p. var. incana                                                                                                                     0.0165299468
+M.p. var. microglab                                                                                                                  0.0882085921
+M.p. var. orb                                                                                                                        0.0111690920
+M. rugosa                                                                                                                            0.0009604470
+M. tremuloides                                                                                                                       0.0025643555
+                     CCGGGTGGGGTAAAATCCCCCGGGTACAATCTCCACCCCTTGCTTATTATACTTGATGTTGCTTTGGCAGGTCGTGGGTAATCGCCCCCGGTGACCGCCCCCATCGGCTTCGGCTGGTGTGTGCCTGCCAATGGCCCAATATTTAAAACCTAGAATTATATTGTAGTCTGATTTTACTATGAAAATAGCCTA
+M. prostrata                                                                                                                                                                                             0.000000e+00
+M.p. var. fakerug                                                                                                                                                                                        5.633327e-05
+M.p. var. glaberrima                                                                                                                                                                                     0.000000e+00
+M.p. var. incana                                                                                                                                                                                         6.933242e-03
+M.p. var. microglab                                                                                                                                                                                      0.000000e+00
+M.p. var. orb                                                                                                                                                                                            0.000000e+00
+M. rugosa                                                                                                                                                                                                1.600745e-04
+M. tremuloides                                                                                                                                                                                           0.000000e+00
+                     TTCTTGGGCCGGGTCAAACTGTGTCCATCAAGTTTTACACCTTTGTGAACAGAAAAACCGTACAGCTTCGGCAGCTGGTCGGTTGGGCCCAGCCCAGCCGGTCGTCAGCCTGCCGGCAGCGCCAAACCAAACCTGTATTTGATGAACTTGTCCTGAACGAATCATTTTCGAATGAGAATTA
+M. prostrata                                                                                                                                                                                  0.0000000000
+M.p. var. fakerug                                                                                                                                                                             0.0003004441
+M.p. var. glaberrima                                                                                                                                                                          0.0149802891
+M.p. var. incana                                                                                                                                                                              0.0002128025
+M.p. var. microglab                                                                                                                                                                           0.0347532411
+M.p. var. orb                                                                                                                                                                                 0.0000000000
+M. rugosa                                                                                                                                                                                     0.0005384324
+M. tremuloides                                                                                                                                                                                0.0002465726
+                     CTAAAGCCCTCTCTCTTCTACACACTTGTGCACATACCCTGTTGCTTTGGCAGGTTTCTAATTCAGCTCTGAGAGTTGAGTTAGTTAGGTTGCGAAACGCCTGCCAAAGATTTCTTAAATCTTAATAATTTAGTCTGACTATTGTTTTTT
+M. prostrata                                                                                                                                                   0.0000000000
+M.p. var. fakerug                                                                                                                                              0.0012017764
+M.p. var. glaberrima                                                                                                                                           0.0214191853
+M.p. var. incana                                                                                                                                               0.0003706882
+M.p. var. microglab                                                                                                                                            0.0208809965
+M.p. var. orb                                                                                                                                                  0.0000000000
+M. rugosa                                                                                                                                                      0.0002910446
+M. tremuloides                                                                                                                                                 0.0272216195
+                     AACCGACCCGACCTCCAACCCTTTGTTGTCCGACTCTGTTGCCTCGGGGGCGACCCTGACCTTCGGGTCTCGGGGCCCCCGGTGGACCATCAAACTCTGCGTTAATTTGTCGTCTGAGTATTGATTAAATCAAATCA
+M. prostrata                                                                                                                                      0.0011196119
+M.p. var. fakerug                                                                                                                                 0.0003567774
+M.p. var. glaberrima                                                                                                                              0.0230946124
+M.p. var. incana                                                                                                                                  0.0004873863
+M.p. var. microglab                                                                                                                               0.0055198460
+M.p. var. orb                                                                                                                                     0.0000000000
+M. rugosa                                                                                                                                         0.0001891790
+M. tremuloides                                                                                                                                    0.0034520170
+                     CTCCTCTTCATCAGAGAGACCCGACCTTCATTTCCAACACTGTGAACCAATTTTGAGGGATTTGCTTAACGGCAATGAACTCTATCACTTTAAAACTCTTCAGTTTAAGAATGTAAAATTTAAAACAAAAA
+M. prostrata                                                                                                                                9.703303e-02
+M.p. var. fakerug                                                                                                                           1.502220e-04
+M.p. var. glaberrima                                                                                                                        6.701708e-03
+M.p. var. incana                                                                                                                            9.610434e-05
+M.p. var. microglab                                                                                                                         1.997313e-03
+M.p. var. orb                                                                                                                               5.505252e-03
+M. rugosa                                                                                                                                   4.467534e-03
+M. tremuloides                                                                                                                              3.895848e-03
+[[1]]
+[1] "NULL"
+
+[[2]]
+[1] "NULL"
+
+[[3]]
+[1] "NULL"
+
+[[4]]
+[1] "NULL"
+
+[[5]]
+[1] "NULL"
+
+[[6]]
+[1] "NULL"
+
+[[7]]
+[1] "NULL"
+
+[[8]]
+[1] "NULL"
+
+[[9]]
+[1] "NULL"
+
+[[10]]
+[1] "NULL"
+
+[[11]]
+[1] "NULL"
+
+[[12]]
+[1] "NULL"
+
+[[13]]
+[1] "NULL"
+
+[[14]]
+[1] "NULL"
+
+[[15]]
+[1] "NULL"
+
+[[16]]
+[1] "NULL"
+
+[[17]]
+[1] "NULL"
+
+                                                                                                                CTCTGGGCGCCTACTCCAACCCTTTGTCTACCATACTTGTTGCTTTGGCGGGCCAGGTGCCCACGCACCGCCGGCTCAGGCTGGAGAGCGCCCGCCAGAGGATACAAAAACACTGCTCACTGTGTCATCTGAGTAAAAAA 
+                                                                                                                                                                                                                                               "Capnodiales" 
+                                                                                                   TCTGGGGTAGACCTCCCACCCGTGTGTATTCTAATCAATTGTTGCTTTGGCGGGCCGCGAGCGTGCCTCGCCCGGAAGTCTCTCCCGGAGTGCCCGCCAGAGGAAACCCAAACTCTGAACATCAGTGTCGTCTGAGTATTATATAAATCGTTA 
+                                                                                                                                                                                                                                                "Helotiales" 
+                                                                                                         CCCGGGAGCCATCTCCACCCATTGAGTACCAACTTGTGTTGCTTTGGCGGCCGCGGCCCTGTCGCCACCGGCCCCGGCTGGTGAGCGCCCGCCAGAGGCCTTAAGTTCTTGATTGCAACGAGTCTGAGCGAGTGAATGAATGCGAAA 
+                                                                                                                                                                                                                                                "Ostropales" 
+                                                                               GATGGTTGTAGCTGGTCTTCCAAAGACATGTGCACGCCTTCTCTTTCATCCACACACCCCTGTGCACTTGTTAGACGGATGATTGTTCCCTTTTATTAGGGACGGTTTCCGTCTGCTAACACATAAAACCATATTATTTAATTTGAATGTAATTGATGTAACGCATCTAATAC 
+                                                                                                                                                                                                                                            "Cantharellales" 
+TCCGACTTTTCTGGTGACCGATGCTAACGTTCTTTCCAGGTGAACCTGCGGAAGGATCATTAAAGAGTTAGGGTCTTCTAGGCCCGACCTCCCAACCCCATGTTTATTGAACCTTTGTTGCTTCGGCGGACCCGTCTCACGACCGCCGGAGGATCGCCTCACGGCGCCCTCTGGCCAGTGTCCGCCGATAGCCAACCCCTAAAACTCTGAATAAATCGTGTCGTATGTCTAAGTCTTGATTAAATTAAAGCA 
+                                                                                                                                                                                                                                           "Chaetothyriales" 
+                                                                                                  CTTGTTCGCGGGTCGGGGGGCCCTTCGGGAGGCCCTGTCTGAACCCTATGTCATTGTCGCACCTCGCGTTTCCTCGGCGGGCTCGCCCGCCAACGAGGACCCCATACCAAACCCATTGCAGTATTGCAGTACACGTCTCACAAACAATCAATCA 
+                                                                                                                                                                                                                                              "Pleosporales" 
+                                                                                                                                  TCGGGGCCGTCTTCTACACCCTTTGTCTACCAACCTGGTGCCCGAATGCGGCCGTACCCTTCGGGGGCGGCACTGACGGCACCGCAACCTCTGGAGCAGATTGATACAATCGAATCCATACA 
+                                                                                                                                                                                                                                              "Coryneliales" 
+                                                                                      ACAACCCTTTGTGAACGTACCTAACCGTTGCTTCGGCGGGCAGGGGAAGCCTCTCGCGGGCGACCCCTCCCGGCGCCGGCCCCCACCACGGGGACGGAGCGCCCGCCGGAGGAAACCAAACTCTATTTACACGACGTCTCTTCTGAGTGGCACAAGCAAATAATTA 
+                                                                                                                                                                                                                                             "Glomerellales" 
+                                                                                                                        CCAAACCCCTGTGAACATACCTTAATGTTGCCTCGGCGGATCAGCCCGCGCCCGGTAAAACGGGACGGCCCGCCAGAGGATCCAAACTCTTGCTGTTATTGTAACTTCTGAGTAAAACAAACAAATAAATCA 
+                                                                                                                                                                                                                                               "Hypocreales" 
+                                                                                                                             TCCCAACCCATGTGAACTTACCTTTTGTTGCCTCGGCAGAAGTTATAGGTCTTCTTATAGCTGCTGCCGGTGGACCATTAAACTCTTGTTATTTTATGTAATCTGAGCGTCTTATTTTAATAAGTCA 
+                                                                                                                                                                                                                                                "Xylariales" 
+                                                                   TCGTATTCGATACTGAAGCTGCCCGGCAACGGGATGTGCTCGTGTCGGTGCGATGTCCCTTCACTATCCACCCCACTGTGAACCAAAGTGTGTGAGTCCGAAAGGGAGACCGGACGGCTTGCATGCGAACCTTTAACATACCCCAATGAAGTATCAGAATGTACCTTCGTTAACTCGCACAAATA 
+                                                                                                                                                                                                                                                "Russulales" 
+                                                                                                                                CAAGCCGGTTCTACCCACACACACCTGTGAACCGTATCTAGGACGCGGACTAGCCCCCGGGCGAAACCGTCCGAACTTTACAAAACGTCATAATGTCACGAACGTAGTCTTATTTTAACAAATA 
+                                                                                                                                                                                                                                               "Tremellales" 
+                                                            CCGGGTGGGGTAAAATCCCCCGGGTACAATCTCCACCCCTTGCTTATTATACTTGATGTTGCTTTGGCAGGTCGTGGGTAATCGCCCCCGGTGACCGCCCCCATCGGCTTCGGCTGGTGTGTGCCTGCCAATGGCCCAATATTTAAAACCTAGAATTATATTGTAGTCTGATTTTACTATGAAAATAGCCTA 
+                                                                                                                                                                                                                        "Lecanoromycetes_ord_Incertae_sedis" 
+                                                                       TTCTTGGGCCGGGTCAAACTGTGTCCATCAAGTTTTACACCTTTGTGAACAGAAAAACCGTACAGCTTCGGCAGCTGGTCGGTTGGGCCCAGCCCAGCCGGTCGTCAGCCTGCCGGCAGCGCCAAACCAAACCTGTATTTGATGAACTTGTCCTGAACGAATCATTTTCGAATGAGAATTA 
+                                                                                                                                                                                                                                                "Orbiliales" 
+                                                                                                      CTAAAGCCCTCTCTCTTCTACACACTTGTGCACATACCCTGTTGCTTTGGCAGGTTTCTAATTCAGCTCTGAGAGTTGAGTTAGTTAGGTTGCGAAACGCCTGCCAAAGATTTCTTAAATCTTAATAATTTAGTCTGACTATTGTTTTTT 
+                                                                                                                                                                                                                                               "Taphrinales" 
+                                                                                                                   AACCGACCCGACCTCCAACCCTTTGTTGTCCGACTCTGTTGCCTCGGGGGCGACCCTGACCTTCGGGTCTCGGGGCCCCCGGTGGACCATCAAACTCTGCGTTAATTTGTCGTCTGAGTATTGATTAAATCAAATCA 
+                                                                                                                                                                                                                                         "Botryosphaeriales" 
+                                                                                                                         CTCCTCTTCATCAGAGAGACCCGACCTTCATTTCCAACACTGTGAACCAATTTTGAGGGATTTGCTTAACGGCAATGAACTCTATCACTTTAAAACTCTTCAGTTTAAGAATGTAAAATTTAAAACAAAAA 
+                                                                                                                                                                                                                     "Microbotryomycetes_ord_Incertae_sedis" 
+                                                                                                                            CTCCGGCGCCCGTCACCACCCCTTGCTTCTCGCCCCCTTTCGGCGCGACGGGGTCCCCTCGCGGGCCCCCTGCCGGAGCCCAAACCATGAACGAACTTGCAAGCCTGAGTAAAGAAGCAAATAGTTTA 
+                                                                                                                                                                                                                                               "Venturiales" 
+                                                                GTTGTAGCTGGCCTTCCGAGGCATGTGCACGCCCTGCTCATCCACTCTACACCTGTGCACTTACTGTGGGTTTACAGGTCGTGAAACGGGCTCGTTTATTCGGGCTTGTTGAGCGCACTTGTTGCCTGCGTTTATCACAAACTCTATAAAGTATCAGAATGTGTATTGCGGTGTAACGCATCTATATA 
+                                                                                                                                                                                                                                               "Polyporales" 
+                                                                                                                   CCAACTTAACTTGGAGTCCGAACTCTCACTTTCTAACCCTGTGCATTTGTTTGGGATAGTAACTCTCGCAAGAGGGCGAACTCCTATTCACTTATAAACACAAAGTCTATGAATGTATTAAATTTTATAACAAAATA 
+                                                                                                                                                                                                                                           "Sporidiobolales" 
+                                                                                              CTGGGTCCAACCTCCCACCCGTGTTTATTATACCTTGTTGCTTCGGTGCGCCCGCCTCACGGCCGCCGGGGGGCTTCTGCCCCCGGGTCCGCGCGCACCGGAGACACTATTGAACTCTGTCTGAAGATTGCAGTCTGAGCATAAACTAAATAAGTTAA 
+                                                                                                                                                                                                                                                "Eurotiales" 
+                                                              AGTTGAGCTGGTCTTCACGGACATGTGCTTGCTGCTTCTATTCATCCTATCCACCTGTGCACTTATTGTAGAGCTTTGAAGAATGTCCTTGTTAGTTCAAGGATTAGTATTCTAGTTCTATGTATTTACAAACTCTATGAATGTCTAGAATGTCTTTTATTGGGACTTCATTGACCCTTTAAACTTTATA 
+                                                                                                                                                                                                                                                "Agaricales" 
+                                                                                                      CCTGCCCCTCACTCCATCCCGTGCGAAACCTCCAGCTCCCGCCTCGGCCGGGCTGTCCTGACCCCACTCGCTGGGGCCGGGGCGCCGGCCGACGGCCAAAACCAAACCACGTCGAACCTTGCAGTCAGTGACCGAATCTAAAAGTAAATA 
+                                                                                                                                                                                                                                                "Onygenales" 
+                                                                                                                    GGGTGTCTCTGCTTCGGCAAGCCCCTCGCACCTTCACATCCATAACACCTGTGAACTGTAAGATGGCCTTCTGGGCCGTCTGACCTTTTTTACAAACAACTATACGTACCTAATGTAGTCTTATTATAACAAAATA 
+                                                                                                                                                                                                                                            "Filobasidiales" 
+                                                                                                                        GCTCTTTTTAGAGGTCCGACCCAAATCATTTTCCTTTACACTGTGCACATACTACTTTTTTCTACACCATTTTTATATACGCAATAGTCTTAAGAATGTAAAATCAGTCTCGAAAGAGCAATAAAAGTAATA 
+                                                                                                                                                                                                                    "Cystobasidiomycetes_ord_Incertae_sedis" 
+                                                                                   AGCCTCCATCCTCCAACCCTTTGTGAACATACCTATTCTCGTTGCCTCGGCGGTGCCGGGCCTGGCCCCCGCCCCCAATCTCGCGATAGGGGCGGAGCAGCCCGCCGACGGCCCCGTAAACTCTTGTTTTTAAGTGTATCTTCTGAGTATAAGCTTCTAAATAAGTAAA 
+                                                                                                                                                                                                                                              "Diaporthales" 
+                                                                                                                 AGCGTCTTAACTGACCTCCCCATCCCTTCACAATCCACATACACCTGTGCACTGTTTTGGCTTTTGAGCAATCGAAAGCCAATCATTTTATACAAACTCTTAGTTTAATGAATGTAACCGTTTTATATAAACAAAATAA 
+                                                                                                                                                                                                                                       "Cystofilobasidiales" 
+                                                      TGGCAAAGGGGGACTGGGCGAAAGCCTGGTCTCTCTTTGCCGCAAGGTGTGGCTCCGCACCTTTTCAAACTAAAATTGGGCTACCATTTTTACACACGGTTGCATCTGTCGGGGCTTCGGCGCCGACGTTTACACACACGTTGATCTATAGTAATTTGTATGGATAGTGACTGGTAATGCGGTCGTATAATCAAAAAA 
+                                                                                                                                                                                                                                             "Ustilaginales" 
+                                                                                        CAGCGCCCGACCTCCAACCCTTTGTTGTTAAAACTACCTTGTTGCTTTGGCGGGACCGCTCGGTTCCGAGCCGCTGGGGATTCGTCCCAGGCGAGTGCCCGCCAGAGTTAAACCAAACTCTTGTTATTAAACCGGTCGTCTGAGTTAAAATTTTGAATAAATCA 
+                                                                                                                                                                                                                                               "Dothideales" 
+                                                                                                                               GCTCTTTTTAGAGGTCCGACCCATTCTCATTTCCTTACCCTGTGCACACACTATTTTTACACACACTTTAAACCCATCAGTTATAAGAATGTCAACAGTCTCTTAATTGAGCATAAAACACAATA 
+                                                                                                                                                                                                                                         "Erythrobasidiales" 
+                                                                                                                          GATTGCTTTCGAGCATCTTCCGATTCTTTTTAGATCTTACACACCTGTGCATCGTTGTCGAGTTCGCTCGATGGCAAAACTTTATTACACACACGAAAATGTTAAGAAAGTCTTAAACTAAAATAAAACA 
+                                                                                                                                                                                                                                             "Exobasidiales" 
+                                                                                                                                                GCACTTCATTGTGCTCGACCCTTCATAATCCATCACACTGTGCACTGTAATACCTTTTATTTTAGACCCTACAAGTCAAAGAATGTACCACTTTGTATAAAGTAAACA 
+                                                                                                                                                                                                                                           "Septobasidiales" 
+                                                                                                TCACTCGAAAGATCTTTTCCTTTGTGCTGGCTTTGACCGTATGTAATTTTGGGACTTAAACATGATACGCCTTACGGTGTATCGGTCCCAAAAACAATATATCATCCTTATAAAAACTTACTGAACTAAACAATTGATTTAATAATCTGTTTAAAA 
+                                                                                                                                                                                                                                            "Umbelopsidales" 
+                                                                                GTCGTCTGTGCTGGCAGAAATGCATGTGCACGTCGATCGCAAATCCACACACCTGTGCACCCTTGACTCTGGGATCTGCAAAGGATTGGCCCTCGGGTTGATCTGGATCTCAGAGTACTTTTATACACTCTGCATGTAATGGAATGAACCTGCGCATGACGCATACAAATAA 
+                                                                                                                                                                                                                                               "Sebacinales" 
+                                                               ATCTCGAGCCCGAACCTCCAACCCTTTGTATAAAACACTTTGTTGCTTTGGCAGGCCCGTCCGAACATCCTTTAACCGGGATCGACGACCGCCGGGGGCGTTCAGTCACCTCTGGCCAGTGCTTGCCGACAGCCTATTCAAAATTCTTTATTAAATCATGTCTGAAAAATTATAACTAAATATAATTAA 
+                                                                                                                                                                                                                                          "Phaeomoniellales" 
+                                                                                                                                   GCTCTTTTTAGAGGTCCGACCCCTTCATTTCCTTACACTGTGCACACACTTCTTTTTCACACATTTTTAACACATCAGTATAAGAATGTAAATAGTCTCTTAATTGAGCATAAAATAAATA 
+                                                                                                                                                                                                                                           "Cystobasidiales" 
+                                                                          GCACTTAATTGTGGCTCAAATTTTTAAAATTTAAACCACTTCTACCTTATTACATGTAGCTTTATTGAAACATAGTAATTTGGTATACGTGGCAAAGATATTAATCTTTGTCACATTACCCCCCTTATTATTATTGTCTAAAATCAAGTTTTAAGAATGTAAAAACCAAAAAATTATA 
+                                                                                                                                                                                                                                               "Pucciniales" 
+                                                                                                                    TCGTAAGAGGCCTGCCACTCATTACAAACACTTGTGCACTTGAAAACGGAGGAAGTTTTCCTTTCGGAAAGCCCCCAATTAAAAACACTTGTATTATAAAGTTGATGATGTCAATAAACATTGATAAACGAAAGTA 
+                                                                                                                                                                                                                                          "Agaricostilbales" 
+                                                                                              TGCTCCCGGGGTCTCGACCCTACCTCTTCACACTTTGTTTATTATCTTCTGTTGCTTTGGCGGACCTTGGAAATTTCCATATCGGCACCTGCTGATCAGTTGTCCGCCAAAGGATCAAAATTCTTATTTTGCTGTCTGAACAAAACACAAATAAATTA 
+                                                                                                                                                                                                                                               "Lecanorales" 
+                                                                                                     TCTGCTTTTGCAGAGCCTGACCTCCACTTCTAACACTGTGCACTTGATGGCAAAGAAAGGACTAGAGAAGTGTAACAGCTTCATTAGAACCCTGCTTTGCGGCTTCATTTTAAACTTTAGTCAAAGTATGTAATAAAATTTAAAACAAAAA 
+                                                                                                                                                                                                                                              "Kriegeriales" 
+                                      GGCTCTTGAGCTGGCACTGCAGGTGCTCAGAGCCTCCATTCATTCCAATTCAACCCCTGTGCACCTTTGAGAACCGATAAGTTGGGTACGGAGCACGGTTCATTTCCTTTTTTGGGTTGAACTTAGTGAAGTGTCCGCTTTCGTTTCTTATTACACAAACTCTATATATTGTTTTGTAGAATGTATCGCCTTTGATTAGGCAAAGTCTAAATAC 
+                                                                                                                                                                                                                                           "Hymenochaetales" 
+                                                                                                    TCAGGGCCCAAACTCCCACCCTTTGTTGTCGCGAATTTGTTGCCTCGGCGGGTTGCCTTTTCGTAAGGTGACGGGCTCCGGCCCACCCGCCGCAGGACATTTCAAACTCTGTTTTTAAACAATGAAGTCTGAGTTATTTGATAAATAAATCA 
+                                                                                                                                                                                                                                              "Myriangiales" 
+                                                                                                                     CCCAAACCCATGTGAACTTATCTCTTTGTTGCCTCGGCGCAAGCTACCCGGGACCCAGCGCCCCGGGCGCCGCCGGCGGACAAACCAAACTCTTGTTATTCAATGGATTATCTGAGCGTCTTATTTAATAAGTCA 
+                                                                                                                                                                                                                                         "Trichosphaeriales" 
+                                                                                                                                       TGCGCCTTCGGGCTGCACGTTGAATCCAATCACACACACCTGTGCACTTCGGTTGTGGCAACACGACCGCTTTACATTTAACAAGTAAAACCTGAATGTACAAACCATAAACATAAA 
+                                                                                                                                                                                                                                            "Auriculariales" 
+    CTCGAGTAAGGCGTAAGCCCGAATGAGCTACTTCTTCTCACGCAAGTGAGCAGAGGAGTAAACCCATTGTGAACTGTTAACGTCTCTGGCGGTGGGGTTGGAACTCGTTTTCCAGCCTGTCAGCATCATGGCCGTTGGGGCTCTTACGAGAACCATCTGCCGAGGTGCCGTGGACAAGCCGCCAAAGTAAAAAACGCTTTATTGTATTCTAACTTGTCTAACCTGCATTTAATCAATGTAACAAAAAA 
+                                                                                                                                                                                                                                         "Spizellomycetales" 
+                                                                                                         CTCGTGGCCCGACCCTCAAACCACCGCGTACCGAACTTCAACGTTGCCTCGGCGGCCGCCCCTCGCGGGCGCGCCGCCGCAGGACACAACCAAAACCGTTTTGTGAGACGAACGTCTGATAACCTTCTTCGCGAATGCGATAAAGTA 
+                                                                                                                                                                                                                                            "Magnaporthales" 
+                                                                                                          CCCAAACCATCGTGAATTCTATCCTTTAGAAGAAGTTGCTTCGGCGGGCGGTCCCGGGGAGGGACCGCGGCCCGCGAGGGCGCCCGCCGGAGCCACGCAAACCTCTTGTTATCAAAGCCTCTCTGAGCACCGATACAAATGTGTCA 
+                                                                                                                                                                                                                                               "Sordariales" 
+                                                                         GGAGCTCGCCCTGCACCGGCGGAGACGTCGTGTCGCGGGTGCTCCCATTCCACACCCACACCCCTGTGCACCTTTGGGAAAGGCTGGTCGAGAGGCCGCCCGACCCGGTTTTTTAACAAACGCTTTGCTCAAGTCTTAAGAATGTGTGTGGCGGCTCGACCGTCCTAAAACTTAAAATA 
+                                                                                                                                                                                                                                            "Trechisporales" 
+                                                                                                                                                GGCTTATAACTATATCCACTTACACCTGTGAACTGTTCTACTACTTGACGCAAGTCGAGTATTTTTACAAACAATGTGTAATGAACGTCGTTTTATTATAACAAAATA 
+                                                                                                                                                                                                                                          "Trichosporonales" 
+                                                                                                 AGCGCTTAACTGCGCGGCGAAAAAACCTTACACACAGTGTCTTTTTGATACAGAACTCTTGCTTTGGTTTGGCCTAGAGATAGGTTGGGCCAGAGGTTTAACAAAACACAATTTAATTATTTTTACAGTTAGTCAAATTTTGAATTAATCTTCAA 
+                                                                                                                                                                                                                                         "Saccharomycetales" 
+                                                                        GTATCGCGTTACCTCGGCGTCTGCAATTGCAGGCGTTAGAGAGTTGCGGTCGGATAGCACTTGAAAACCCCCACCCTTGTCTATTTAACCTTTGTTGCCTCGGCGGGTTCGCCCGCCAGAGGCCCCTTCTAAAACTCTTGTTGTAAACGACGTTTGTCTAAGCTACAAAGCAATTGTTTA 
+                                                                                                                                                                                                                                             "Patellariales" 
+                                                                                                                            CTTTGTACACCATTGTGAACCTACCTTTACACGTTGCCTCGGCGGGCCCAGGTCTCCGGACCCAACCGCCGGCGGCCCACAGACTATATCTCTGCGTTGGCATCTCGAGGAATTATACAAGCAAGTTA 
+                                                                                                                                                                                                                                         "Chaetosphaeriales" 
+                                                                 TGCGCTCCGGGGGCTTCGTGCCCCGACTCTTCAACCCTGTGTGCACTGTATCCGTGTTGCTTTGGCGAGCTTCGAGCCCGGCTCGACGTCGGCCCGGGGGCGTGTTCCCGGGGCTTTCGAGCGCCCGCCGGAGGCCATCCACCATCCGTTTTTATCAGTGACGTCCGAGCAAACGACCAATTAGTTA 
+                                                                                                                                                                                                                                                "Lecideales" 
+                                                                                                                                   GCACTTTTTAAAATCCATATCCACCTTGTGTGCAATGTCAGTTATTCCTTGCGAATAACTAAACATCAACCTAACTTAACCTATAGTCTGAAAAATATTATGAATAACTAATTCAAAATAC 
+                                                                                                                                                                                                                                            "Mortierellales" 
+                                                                                                                      CTAACCGGCCTCAACTCTTCACCCGTGACAACATAGCCATGTTGCTTTGGCTGACGGGGCTTACCTTTAAGTCAGCCGAAGGATTATCTAAAATCTTTTTTATCCGTGCAGTCCGAGCGAATATTAAATAGTTA 
+                                                                                                                                                                                                                                                "Caliciales" 
+                                                                                                        CTCGGGTTCCTACTCCCACCCTATGTTGACTACAAATGTTGCTTTGGCGGACCGGTGGTCACACCGCCGGCCTAGGCTGGATAGCGTCCGCCAGAGGATTTTTAAACTCTTGTTAACGGTGAATTCCGAGTACTGAGAAATTGAATCA 
+                                                                                                                                                                                                                                               "Hysteriales" 
+                                                           AGTCCAGGTGGGCGGTGGAGGCATGGGAAACCATGCTTACCACACGCCCCTTCTTCATGAACATCCCTTCTGTGTATCAAACCTTTGTTGCTTCCCGCATGGCGTGGCCTGCAAGGGCTATACTGCGGGGAGGATATCATAAACTCTGGTTGTTGTATTCTTAGTCTGAGTGGTAAACACATTAAACAAGTTA 
+                                                                                                                                                                                                                                                 "Pezizales" 
+                                                                                   GTTTTCCACTCTGTGGTAACCCTCACTACAATACACCAACATCCATATACACCTGTGCACCGTTGGCTAGATGTGGCTCACTTGTGAGTCTTCGTCTGCTGACAACAATTTATAAACTCTGAGTTATAATGAATGTTAATTGTATCTTCCATTTGGCAGAAACTAAATA 
+                                                                                                                                                                                                                                          "Microstromatales" 
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0018 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.9953653575 -0.0009258567  0.0041932587 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0335 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.2276519223 -0.0002413742  0.0021328618 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 1e-04 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 4.0565532606 -0.0003965438  0.0031227918 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0085 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.555356e+00 5.795091e-05 2.335108e-03 
+[1] ""
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0018 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.9552833796 -0.0004553969  0.0042869034 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0293 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+ 2.250485666 -0.000397464  0.002096147 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 2e-04 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+ 4.102638594 -0.001092941  0.003071816 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0085 
+Alternative hypothesis: greater 
+
+    Std.Obs Expectation    Variance 
+2.590364942 0.000152290 0.002268946 
+[1] ""
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0024 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.965544e+00 5.071382e-05 4.235047e-03 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0331 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.2073100251 0.0005120101 0.0021406548 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 2e-04 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 4.0904931938 -0.0000969496  0.0030630730 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0083 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.5692061618 -0.0002356022  0.0023209958 
+[1] ""
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0026 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.966404e+00 -1.012279e-05  4.235263e-03 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0308 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.2764673402 -0.0006727089  0.0020595322 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 1e-04 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 4.0520295149 -0.0004283087  0.0031306455 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0081 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+ 2.634093584 -0.001488984  0.002253000 
+[1] ""

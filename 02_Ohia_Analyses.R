@@ -130,7 +130,7 @@ noquote(print(""))
 noquote(print("Model includes Ohia taxon, Altitude, and number of replicate trees."))
 noquote(print(""))
 summary(mod)
-sink(NULL)
+closeAllConnections()
 
 # Change taxa names to remove rank tags
 tax_table(ps)[,"Kingdom"] <- str_remove(tax_table(ps)[,"Kingdom"],"k__")
@@ -203,29 +203,29 @@ df_order = as.data.frame(decostand(ps_order@otu_table,method = "total"))
 orderlabs = ps_order@tax_table@.Data[,"Order"]
 
 
-orderlabs = map(strsplit(orderlabs, "o__"),2)
-orderlabs = map(strsplit(as.character(orderlabs), "_ord_"),1)
+# orderlabs = map(strsplit(orderlabs, "o__"),2)
+# orderlabs = map(strsplit(as.character(orderlabs), "_ord_"),1)
 orderlabs = orderlabs[main_orders]
 df_order = df_order[,main_orders]
 
- png("./Output/Heatmap_of_Order_by_Taxon.png",width = 8008, height = 8008, res = 300)
+png("./Output/Heatmap_of_Order_by_Taxon.png",width = 8008, height = 8008, res = 300)
 heatmap(as.matrix(df_order), labCol = orderlabs, col = gray.colors(50), Colv = NA, margins=c(10,16),
         cexRow = 2,cexCol = 2)
- dev.off()
+dev.off()
 
- 
+
  
  
 # heatmap of fungal genera for each sample
 ps_genus = tax_glom(ps, "Genus")
 df_genus = as.data.frame(otu_table(ps_genus))
 genuslabs = ps_genus@tax_table@.Data[,"Genus"]
-genuslabs = map(strsplit(as.character(genuslabs), "g__"),2)
+# genuslabs = map(strsplit(as.character(genuslabs), "g__"),2)
 
- png("./Output/Heatmap_of_Genus_by_Tree.png",width = 8008, height = 8008, res = 300)
- heatmap(as.matrix(df_genus), labCol = genuslabs, col = gray.colors(50), Colv = NA, margins=c(10,8),
+png("./Output/Heatmap_of_Genus_by_Tree.png",width = 8008, height = 8008, res = 300)
+heatmap(as.matrix(df_genus), labCol = genuslabs, col = gray.colors(50), Colv = NA, margins=c(10,8),
          cexRow = 2)
- dev.off()
+dev.off()
 
 
 
@@ -362,7 +362,7 @@ print("", quote = FALSE)
 print("", quote = FALSE)
 print("multiplicative model", quote = FALSE)
 adonis.2
-sink(NULL)
+closeAllConnections()
 
 # Post-hoc test...where do differences manifest among taxa and sites?
 
@@ -386,7 +386,7 @@ adonis.3 = adonis(otu_table(ps_ra) ~ sample_data(ps_ra)$outliers)
 
 sink(file = "./Output/PermANOVA_PCA_outlier_community_differences.txt")
 adonis.3
-sink(NULL)
+closeAllConnections()
 
 
 samdat = as.data.frame(sample_data(ps_ra))
@@ -396,7 +396,7 @@ mod1 = aov(outliers ~ Abaxial_Surface, data=meta2)
 
 sink("./Output/Outlier_Predictors.txt")
 summary(mod2)
-sink(NULL)
+closeAllConnections()
 
 
 sample_data(ps_ra)
@@ -407,7 +407,7 @@ print("PermANOVA -- Interactive")
 adonis.2
 print("PermANOVA -- Outliers")
 adonis.3
-sink(NULL)
+closeAllConnections()
 
 # Find outlier trees
 plot(princomp$rotation)
@@ -427,7 +427,7 @@ mantel.test = mantel.rtest(spatial.dist, comm.dist, nrepet = 9999)
  sink(file = "./Output/Stat-Tests.txt", append = TRUE)
  print("MANTEL TEST")
  mantel.test
- sink(NULL)
+ closeAllConnections()
 
  png("./Output/Mantel_Plot.png")
  plot(mantel.test)
@@ -451,6 +451,7 @@ ps.temp = subset_samples(ps_ra, Collection_Site == i)
   print(i)
   print(mantel.test)
   print("")
+  sink(NULL)
   }
 
  
@@ -488,7 +489,7 @@ mod = data.frame(Shannon = shannon, Altitude = meta$ALTITUDE,Taxon=meta$Taxon,Si
            Elevation=meta$Elevation,Surface=meta$Abaxial_Surface)
 names(mod)
 
-# sink(file = "./Output/Stat-Tests.txt", append = TRUE)
+sink(file = "./Output/Stat-Tests.txt", append = TRUE)
 print("Model Selection for Shannon Diversity")
 m1 = aov(Shannon ~ Altitude+Taxon*Site+Elevation+Surface, data = mod)
 summary(m1)
@@ -498,14 +499,13 @@ m3 = aov(Shannon ~ Surface*Site*Altitude, data = mod)
 summary(m3)
 print("Stepwise AIC")
 stepAIC(m1,scope = ~Altitude+Taxon*Site+Elevation+Surface)
-# sink(NULL)
+sink(NULL)
 
 # Plot of Shannon vs altitude+taxon ####
 ggplot(mod, aes(x=Altitude,y=Shannon, color=Taxon)) +
   geom_point() + stat_smooth(se=FALSE, method = "lm") +
   theme_bw() + labs(x="Elevation (m)",y="Shannon Diversity")
 ggsave("Output/Diversity_vs_Altitude_w_Taxon.png", dpi=300)
-
 
 
 
