@@ -62,3 +62,236 @@ Alternative hypothesis: greater
      Std.Obs  Expectation     Variance 
 2.5478406583 0.0007456215 0.0023228151 
 [1] ""
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0025 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.9520822267 0.0004036793 0.0042581420 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0306 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.2880407291 -0.0005439971  0.0020336729 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 1e-04 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+4.022636e+00 2.936089e-05 3.163752e-03 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0103 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.5602843021 -0.0001991677  0.0023358243 
+[1] ""
+                                             Df Sum Sq Mean Sq F value   Pr(>F)    
+ps_ra@sam_data$Taxon                          7  23.80   3.400   5.811 1.26e-05 ***
+ps_ra@sam_data$ALTITUDE                       1   0.58   0.581   0.993 0.321453    
+ps_ra@sam_data$outliers                       1   8.31   8.306  14.196 0.000286 ***
+meta2$reps                                    1   0.18   0.183   0.313 0.577247    
+ps_ra@sam_data$Taxon:ps_ra@sam_data$ALTITUDE  7   3.91   0.558   0.954 0.469703    
+Residuals                                    95  55.58   0.585                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Call:
+   aov(formula = shannon ~ ps_ra@sam_data$Taxon * ps_ra@sam_data$ALTITUDE + 
+    ps_ra@sam_data$outliers + meta2$reps)
+
+Terms:
+                ps_ra@sam_data$Taxon ps_ra@sam_data$ALTITUDE ps_ra@sam_data$outliers meta2$reps
+Sum of Squares              23.79968                 0.58121                 8.30621    0.18305
+Deg. of Freedom                    7                       1                       1          1
+                ps_ra@sam_data$Taxon:ps_ra@sam_data$ALTITUDE Residuals
+Sum of Squares                                       3.90526  55.58391
+Deg. of Freedom                                            7        95
+
+Residual standard error: 0.7649142
+Estimated effects may be unbalanced
+                                             Df Sum Sq Mean Sq F value   Pr(>F)    
+ps_ra@sam_data$Taxon                          7  23.80   3.400   5.811 1.26e-05 ***
+ps_ra@sam_data$ALTITUDE                       1   0.58   0.581   0.993 0.321453    
+ps_ra@sam_data$outliers                       1   8.31   8.306  14.196 0.000286 ***
+meta2$reps                                    1   0.18   0.183   0.313 0.577247    
+ps_ra@sam_data$Taxon:ps_ra@sam_data$ALTITUDE  7   3.91   0.558   0.954 0.469703    
+Residuals                                    95  55.58   0.585                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+                                             Df Sum Sq Mean Sq F value   Pr(>F)    
+ps_ra@sam_data$Taxon                          7  23.80   3.400   5.811 1.26e-05 ***
+ps_ra@sam_data$ALTITUDE                       1   0.58   0.581   0.993 0.321453    
+ps_ra@sam_data$outliers                       1   8.31   8.306  14.196 0.000286 ***
+meta2$reps                                    1   0.18   0.183   0.313 0.577247    
+ps_ra@sam_data$Taxon:ps_ra@sam_data$ALTITUDE  7   3.91   0.558   0.954 0.469703    
+Residuals                                    95  55.58   0.585                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+      o100       o101       o102       o103       o105       o108       o119       o120       o122       o127       o128 
+0.65730504 0.59668767 0.72814887 2.42814378 0.76708648 3.44012544 3.03068030 2.81220779 0.58136002 2.79216496 2.46038233 
+      o131       o134       o137       o138       o139       o141       o142       o143       o145       o146       o148 
+0.18046240 2.21798382 2.15108536 1.51415240 1.32694247 1.98925558 0.01286492 1.61521552 0.29250281 1.67864330 1.24492038 
+      o151       o155       o156       o175       o176       o177       o178       o179       o180       o182       o183 
+1.52847324 0.14297237 0.06494731 1.54180484 0.53472444 1.39429446 2.05128236 0.41558596 0.36939005 1.18913380 1.22323485 
+      o184       o186       o187       o189       o190       o191       o192       o193       o194       o195       o212 
+2.55254146 0.26237290 0.11902466 1.29376541 1.64847829 1.41228975 0.31432683 0.50892137 0.13332378 1.51991077 2.48274116 
+      o213       o216       o219       o220       o225       o226       o227       o228       o232       o233       o235 
+0.00000000 1.84699772 0.18438158 0.05864003 1.61406719 2.86510695 3.45934513 2.18811279 3.74709035 3.30274880 1.98285759 
+      o295       o296       o299       o300       o301       o302       o303       o304       o311       o312       o314 
+0.06080583 0.22607954 1.39723269 0.21044451 0.62018948 0.18856858 0.92449905 1.21876693 0.79911795 0.17071501 0.85211625 
+      o315       o318       o320       o322       o325       o326       o329       o333       o334       o335       o337 
+1.70701919 0.11695815 1.63786768 0.29008713 2.31699982 0.85930587 2.04394220 0.38155048 2.10084556 0.69074905 1.68682726 
+       o35        o36        o37       o386       o387        o38       o393       o394       o395       o404       o405 
+1.56334806 2.09629696 1.55914775 1.24117267 1.01408445 1.14459025 1.16024410 0.08942234 0.76194838 0.19851661 0.23994217 
+      o407       o408        o40       o411       o505       o506       o507       o508        o51        o52        o53 
+0.38533316 1.00128624 1.79094360 0.22837495 2.13108677 2.90798510 1.35251939 2.01186108 0.54891434 0.36344115 0.96596148 
+       o61        o62        o69        o72        o76        o77        o78        o79        o87        o88        o89 
+2.39229620 1.85561278 0.93060510 1.02506166 1.37441081 1.39294047 0.18496181 0.45247027 0.81189027 1.08482334 1.17460377 
+       o90        o98        o99 
+1.01738206 0.04238658 1.52166218 
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.002 
+Alternative hypothesis: greater 
+
+    Std.Obs Expectation    Variance 
+2.940759821 0.001049045 0.004262291 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0315 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.2258103002 -0.0005324522  0.0021484988 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 2e-04 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+ 4.108150770 -0.001393394  0.003071679 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0092 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.5754836462 -0.0001852358  0.0023078159 
+[1] ""
+[1] "Shannon"   "Altitude"  "Taxon"     "Site"      "Elevation" "Surface"  
+[1] "Model Selection for Shannon Diversity"
+            Df Sum Sq Mean Sq F value  Pr(>F)   
+Altitude     1   5.86   5.856   8.197 0.00515 **
+Taxon        7   5.58   0.796   1.115 0.36019   
+Site         4  11.63   2.906   4.068 0.00433 **
+Elevation    1   0.19   0.190   0.265 0.60763   
+Taxon:Site   3   0.53   0.176   0.247 0.86353   
+Residuals   96  68.58   0.714                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+             Df Sum Sq Mean Sq F value  Pr(>F)   
+Surface       1   3.37   3.375   4.760 0.03145 * 
+Taxon         6   5.51   0.918   1.294 0.26671   
+Site          4  11.87   2.967   4.185 0.00354 **
+Residuals   101  71.61   0.709                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+                      Df Sum Sq Mean Sq F value Pr(>F)  
+Surface                1   3.37   3.375   4.537 0.0358 *
+Site                   4   8.76   2.189   2.943 0.0244 *
+Altitude               1   2.55   2.555   3.435 0.0670 .
+Surface:Site           4   3.85   0.962   1.293 0.2785  
+Surface:Altitude       1   1.91   1.912   2.571 0.1123  
+Site:Altitude          4   2.01   0.504   0.677 0.6095  
+Surface:Site:Altitude  4   0.72   0.181   0.243 0.9134  
+Residuals             93  69.18   0.744                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "Stepwise AIC"
+Start:  AIC=-22.42
+Shannon ~ Altitude + Taxon * Site + Elevation + Surface
+
+
+Step:  AIC=-22.42
+Shannon ~ Altitude + Taxon + Site + Elevation + Taxon:Site
+
+
+Step:  AIC=-22.42
+Shannon ~ Altitude + Taxon + Site + Taxon:Site
+
+             Df Sum of Sq    RSS     AIC
+- Taxon:Site  4   0.71823 69.302 -29.247
+- Altitude    1   0.00061 68.584 -24.423
+<none>                    68.584 -22.424
+
+Step:  AIC=-29.25
+Shannon ~ Altitude + Taxon + Site
+
+             Df Sum of Sq    RSS     AIC
+<none>                    69.302 -29.247
++ Elevation   1    0.1896 69.112 -27.557
+- Altitude    1    2.3084 71.610 -27.545
+- Taxon       7   10.7496 80.052 -26.953
++ Taxon:Site  4    0.7182 68.584 -22.424
+- Site        4   11.6259 80.928 -19.723
+Call:
+   aov(formula = Shannon ~ Altitude + Taxon + Site, data = mod)
+
+Terms:
+                Altitude    Taxon     Site Residuals
+Sum of Squares   5.85598  5.57536 11.62591  69.30206
+Deg. of Freedom        1        7        4       100
+
+Residual standard error: 0.8324786
+Estimated effects may be unbalanced

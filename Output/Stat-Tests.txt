@@ -70,3 +70,147 @@ ps_ra@sam_data$Taxon:ps_ra@sam_data$ALTITUDE  7   3.91   0.558   0.954 0.469703
 Residuals                                    95  55.58   0.585                     
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "PermANOVA -- Additive"
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon +      sample_data(ps_ra)$Abaxial_Surface + sample_data(ps_ra)$Collection_Site) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                                    Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+sample_data(ps_ra)$Taxon             7     6.148 0.87833  2.0326 0.11566  0.001 ***
+sample_data(ps_ra)$Collection_Site   3     2.936 0.97854  2.2645 0.05522  0.001 ***
+Residuals                          102    44.077 0.43212         0.82912           
+Total                              112    53.160                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "PermANOVA -- Interactive"
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon *      sample_data(ps_ra)$Abaxial_Surface * sample_data(ps_ra)$Collection_Site) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                                                             Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+sample_data(ps_ra)$Taxon                                      7     6.148 0.87833  2.0694 0.11566  0.001 ***
+sample_data(ps_ra)$Collection_Site                            3     2.936 0.97854  2.3055 0.05522  0.001 ***
+sample_data(ps_ra)$Taxon:sample_data(ps_ra)$Collection_Site   5     2.907 0.58133  1.3697 0.05468  0.002 ** 
+Residuals                                                    97    41.170 0.42443         0.77445           
+Total                                                       112    53.160                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "PermANOVA -- Outliers"
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$outliers) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                             Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)
+sample_data(ps_ra)$outliers   1     0.430 0.42983 0.90481 0.00809  0.648
+Residuals                   111    52.731 0.47505         0.99191       
+Total                       112    53.160                 1.00000       
+[1] "MANTEL TEST"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.09314496 
+
+Based on 9999 replicates
+Simulated p-value: 2e-04 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 4.615888e+00 -5.698977e-05  4.076988e-04 
+[1] ""
+[1] "Shannon Diversity ANOVA - Taxon*Altitude"
+                                             Df Sum Sq Mean Sq F value   Pr(>F)    
+ps_ra@sam_data$Taxon                          7  23.80   3.400   5.811 1.26e-05 ***
+ps_ra@sam_data$ALTITUDE                       1   0.58   0.581   0.993 0.321453    
+ps_ra@sam_data$outliers                       1   8.31   8.306  14.196 0.000286 ***
+meta2$reps                                    1   0.18   0.183   0.313 0.577247    
+ps_ra@sam_data$Taxon:ps_ra@sam_data$ALTITUDE  7   3.91   0.558   0.954 0.469703    
+Residuals                                    95  55.58   0.585                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "PermANOVA -- Additive"
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon +      sample_data(ps_ra)$Abaxial_Surface + sample_data(ps_ra)$Collection_Site) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                                    Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+sample_data(ps_ra)$Taxon             7     6.148 0.87833  2.0326 0.11566  0.001 ***
+sample_data(ps_ra)$Collection_Site   3     2.936 0.97854  2.2645 0.05522  0.001 ***
+Residuals                          102    44.077 0.43212         0.82912           
+Total                              112    53.160                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "PermANOVA -- Interactive"
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon *      sample_data(ps_ra)$Abaxial_Surface * sample_data(ps_ra)$Collection_Site) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                                                             Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+sample_data(ps_ra)$Taxon                                      7     6.148 0.87833  2.0694 0.11566  0.001 ***
+sample_data(ps_ra)$Collection_Site                            3     2.936 0.97854  2.3055 0.05522  0.001 ***
+sample_data(ps_ra)$Taxon:sample_data(ps_ra)$Collection_Site   5     2.907 0.58133  1.3697 0.05468  0.001 ***
+Residuals                                                    97    41.170 0.42443         0.77445           
+Total                                                       112    53.160                 1.00000           
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "PermANOVA -- Outliers"
+
+Call:
+adonis(formula = otu_table(ps_ra) ~ sample_data(ps_ra)$outliers) 
+
+Permutation: free
+Number of permutations: 999
+
+Terms added sequentially (first to last)
+
+                             Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)
+sample_data(ps_ra)$outliers   1     0.430 0.42983 0.90481 0.00809  0.664
+Residuals                   111    52.731 0.47505         0.99191       
+Total                       112    53.160                 1.00000       
+[1] "MANTEL TEST"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.09314496 
+
+Based on 9999 replicates
+Simulated p-value: 1e-04 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+4.6292754884 0.0001583041 0.0004034736 
+[1] ""
+[1] "Shannon Diversity ANOVA - Taxon*Altitude"
+                                             Df Sum Sq Mean Sq F value   Pr(>F)    
+ps_ra@sam_data$Taxon                          7  23.80   3.400   5.811 1.26e-05 ***
+ps_ra@sam_data$ALTITUDE                       1   0.58   0.581   0.993 0.321453    
+ps_ra@sam_data$outliers                       1   8.31   8.306  14.196 0.000286 ***
+meta2$reps                                    1   0.18   0.183   0.313 0.577247    
+ps_ra@sam_data$Taxon:ps_ra@sam_data$ALTITUDE  7   3.91   0.558   0.954 0.469703    
+Residuals                                    95  55.58   0.585                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

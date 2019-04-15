@@ -20,7 +20,6 @@ library(ggpubr)
 library(dada2); packageVersion("dada2")
 library(stringr)
 library(purrr)
-library(corncob)
 library(deseq2)
 library(vegan)
 library(dplyr)
@@ -28,6 +27,8 @@ library(reshape2)
 library(ade4)
 library(MASS)
 library(ggbiplot)
+library(fitdistrplus)
+
 
 # Load data ####
 ps = readRDS(file = "./Output/clean_phyloseq_object.RDS")
@@ -45,7 +46,100 @@ ps = subset_samples(ps, Taxon != "#N/A")
 # Remove any newly-empty samples ####
 ps <- prune_samples(sample_sums(ps) != 0, ps)
 
-sample_names(ps)
+# relative abundance
+ps_ra = transform_sample_counts(ps, function(x) x/sum(x))
+
+# Host specificity ####
+host.specif = (specnumber(otu_table(ps),sample_data(ps)$Taxon,2))
+png("./Output/single-host_taxa_abundance.png")
+plot((taxa_sums(ps)[host.specif == 1]),main = "Abundance of taxa found in only a single host", ylab = "Absolute Abundance")
+dev.off()
+
+abundant.1host.taxa = which(taxa_sums(ps)[host.specif == 1] > 1000)
+host.specific.taxa = as.data.frame(tax_table(ps)[abundant.1host.taxa]) # names of taxa found on only one host with more than 1000 abs. abundance
+write.csv(host.specific.taxa, "./Output/host-sepcific_taxa.csv",quote = FALSE,row.names = FALSE)
+
+# count number of taxa that are host-specific in each sample
+hstaxa = specnumber(otu_table(ps), sample_data(ps)$Taxon,2)
+hstaxa = which(hstaxa == 1)
+hsotus = otu_table(ps)[,hstaxa]
+heatmap(hsotus)
+hsotus[hsotus > 0] <- 1
+
+# Plot host specificity against ALTITUDE
+# add column to meta that shows number of host-specific taxa found in each sample
+row.names(hsotus)
+meta2 = meta
+meta2 = (meta2[meta2$IDENT %in% names(hsotus@.Data[,2]),])
+meta2 = arrange(meta2,IDENT)
+
+
+hs.count = rowSums(hsotus)
+meta2$No.HS_Taxa = hs.count
+meta2$Proportion.HS = meta2$No.HS_Taxa / vegan::specnumber(otu_table(ps))
+meta2$Proportion.HS.total = meta2$Proportion.HS * rowSums(otu_table(ps))
+
+
+ggplot(meta2, aes(x=ALTITUDE,y=Proportion.HS)) +
+  geom_point(aes(color=Taxon)) + stat_smooth( se=FALSE) +
+  theme_bw() + labs(x="Elevation (m)",y="Proportion of host-specific taxa") +
+  theme(legend.text = element_text(face="italic"))
+ggsave("./Output/Host-Specificity_elevation.png", dpi=300, height = 10, width = 12)
+
+ggplot(meta2, aes(x=ALTITUDE,y=Proportion.HS,color=Taxon)) +
+  geom_point(aes(color=Taxon)) + stat_smooth( se=FALSE, method = "lm") +
+  theme_bw() + labs(x="Elevation (m)",y="Proportion of host-specific taxa") +
+  theme(legend.text = element_text(face="italic"))
+ggsave("./Output/Host-Specificity_elevation2.png", dpi=300, height = 10, width = 12)
+
+# anova does tree taxon affect number of host-specific fungi found?
+hsotus = hsotus[,taxa_sums(hsotus) > 1]
+sample_sums(hsotus)
+meta2 = meta[meta$IDENT %in% sample_data(ps_ra)$IDENT,]
+
+# get number of reps in each taxon
+tree.reps = meta2 %>%
+  dplyr::group_by(Taxon) %>%
+  dplyr::summarise(N=n())
+
+meta2$reps = as.numeric(as.character(plyr::mapvalues(meta2$Taxon, from = tree.reps$Taxon, to = tree.reps$N)))
+
+# Check distribution
+plotdist(sqrt(sample_sums(hsotus)), histo = TRUE, demp = TRUE)
+descdist(sqrt(sample_sums(hsotus)), discrete = FALSE, boot = 1000)
+summary(fitdist(sqrt(sample_sums(hsotus)), "norm"))
+
+# Make ANOVA model with sq-rt transformed data 
+mod = aov(sqrt(sample_sums(hsotus)) ~ sample_data(ps)$ALTITUDE * sample_data(ps)$Taxon * meta2$reps)
+summary(mod) # no...almost?
+
+
+
+norm.fit = fitdistr(sample_sums(hsotus), "normal")
+plot(sample_sums(hsotus))
+
+
+
+kruskal.test(sample_sums(hsotus),meta2$reps)
+plot(sample_sums(hsotus) ~ sample_data(ps)$ALTITUDE)
+
+sink("./Output/host-specificity_anova_table.txt")
+noquote(print("Prevalence of host-specific fungi"))
+noquote(print(""))
+noquote(print(""))
+noquote(print("Model includes Ohia taxon, Altitude, and number of replicate trees."))
+noquote(print(""))
+summary(mod)
+sink(NULL)
+
+# Change taxa names to remove rank tags
+tax_table(ps)[,"Kingdom"] <- str_remove(tax_table(ps)[,"Kingdom"],"k__")
+tax_table(ps)[,"Phylum"] <- str_remove(tax_table(ps)[,"Phylum"],"p__")
+tax_table(ps)[,"Order"] <- str_remove(tax_table(ps)[,"Order"],"o__")
+tax_table(ps)[,"Class"] <- str_remove(tax_table(ps)[,"Class"],"c__")
+tax_table(ps)[,"Family"] <- str_remove(tax_table(ps)[,"Family"],"f__")
+tax_table(ps)[,"Genus"] <- str_remove(tax_table(ps)[,"Genus"],"g__")
+tax_table(ps)[,"Species"] <- str_remove(tax_table(ps)[,"Species"],"s__")
 
 # Sanity check
 which(sample_sums(ps) == 0)
@@ -107,6 +201,8 @@ main_orders = (which(colSums(ps_order@otu_table) > 1000))
 
 df_order = as.data.frame(decostand(ps_order@otu_table,method = "total"))
 orderlabs = ps_order@tax_table@.Data[,"Order"]
+
+
 orderlabs = map(strsplit(orderlabs, "o__"),2)
 orderlabs = map(strsplit(as.character(orderlabs), "_ord_"),1)
 orderlabs = orderlabs[main_orders]
@@ -137,24 +233,28 @@ genuslabs = map(strsplit(as.character(genuslabs), "g__"),2)
 
 plot_bar(psm_ra, fill = "Phylum",x="Taxon") +
   geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
-  labs(x="Ohia Taxon",y="Relative Abundance")
-# ggsave("./Output/BarPlot_Fungal_Phylum_by_Tree.png", height = 8, width = 12, dpi=300)
+  labs(x="Ohia Taxon",y="Relative Abundance")+ theme_bw()
+ggsave("./Output/BarPlot_Fungal_Phylum_by_Tree.png", height = 8, width = 12, dpi=300)
 
 # Same, but merged by site
 plot_bar(psm_ra_site, fill = "Phylum",x="Collection_Site") +
-  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
-  labs(x="Collection Site",y="Relative Abundance")
+  geom_bar(stat = "identity") + 
+  scale_x_discrete(limit = c("Kuliouou","Konahuanui","Aiea Ridge","Mt. Ka`ala")) +
+  coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Collection Site",y="Relative Abundance")+ theme_bw()
 ggsave("./Output/BarPlot_Fungal_Phylum_by_Site.png", dpi = 300)
 
 plot_bar(psm_ra_site, fill = "Class",x="Collection_Site") +
-  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
-  labs(x="Collection Site",y="Relative Abundance")
+  geom_bar(stat = "identity") + 
+  scale_x_discrete(limit = c("Kuliouou","Konahuanui","Aiea Ridge","Mt. Ka`ala")) +
+  coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Collection Site",y="Relative Abundance") + theme_bw()
 ggsave("./Output/BarPlot_Fungal_Class_by_Site.png", dpi = 300, height = 8, width = 12)
 
 
-
 plot_bar(psm_ra, fill = "Phylum",x="Taxon") +
-  geom_bar(stat = "identity") + coord_flip()  + facet_wrap(~(sample_data(psm_ra)$Abaxial_Surface)) +
+  geom_bar(stat = "identity") + 
+  coord_flip()  + facet_wrap(~(sample_data(psm_ra)$Abaxial_Surface)) +
   labs(x="Site",y="Relative Abundance") + lims(y=c(0,1)) + theme_bw()
 ggsave("./Output/BarPlot_Fungal_Phylum_by_Tree_and_Surface.png", height = 8, width = 12,dpi=300)
 
@@ -191,6 +291,8 @@ order_summary = summarize_taxa(ps,"Order","Elevation")
 order_summary = order_summary[order_summary$Order != "NA",]
 # reorder
 setorder(order_summary, -meanRA)
+
+
 # plot
 ggplot(order_summary, aes(x= meanRA, y=Order, facet=Elevation)) +
   geom_point() + geom_errorbarh(aes(xmin=meanRA-sdRA,xmax=meanRA+sdRA)) + labs(x="Relative Abundance") +
@@ -228,6 +330,20 @@ pcoaplot=plot_ordination(ps_ra, PCoA, color = "Taxon",shape = "Abaxial_Surface")
  grid.arrange(nmdsplot,dcaplot,ccaplot,rdaplot,mdsplot,pcoaplot)
  dev.off()
 
+ sample_data(ps_ra)$Collection_Site <- plyr::mapvalues(sample_data(ps_ra)$Collection_Site, from = "Wiliwilinui", to = "Kuliouou")
+ 
+ nmdsplot=plot_ordination(ps_ra, NMDS, color = "Collection_Site",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Site",shape="Surface") + ggtitle("NMDS") + theme(legend.position = "none")
+ dcaplot=plot_ordination(ps_ra, DCA, color = "Collection_Site",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Site",shape="Surface") + ggtitle("DCA")
+ ccaplot=plot_ordination(ps_ra, CCA, color = "Collection_Site",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Site",shape="Surface") + ggtitle("CCA")+ theme(legend.position = "none")
+ rdaplot=plot_ordination(ps_ra, RDA, color = "Collection_Site",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Site",shape="Surface") + ggtitle("RDA")+ theme(legend.position = "none")
+ mdsplot=plot_ordination(ps_ra, MDS, color = "Collection_Site",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Site",shape="Surface") + ggtitle("MDS")+ theme(legend.position = "none")
+ pcoaplot=plot_ordination(ps_ra, PCoA, color = "Collection_Site",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Site",shape="Surface") + ggtitle("PCoA")+ theme(legend.position = "none")
+ 
+ png(filename = "./Output/Ordination_Plots.png",height = 3000,width = 3000,res = 300)
+ grid.arrange(nmdsplot,dcaplot,ccaplot,rdaplot,mdsplot,pcoaplot)
+ dev.off()
+ 
+ 
  ggsave(nmdsplot + stat_ellipse(alpha = 0.5), filename = "./Output/NMDS_taxon-and-leaftype_with_ellipses.png", dpi = 300)
 
 #permanova ####
@@ -265,12 +381,17 @@ outliers = c(row.names(pc[which(pc$PC1 < 1),]),row.names(pc[which(pc$PC2 < .5),]
 outliers = unique(outliers)
 
 sample_data(ps_ra)$outliers <- row.names(sample_data(ps_ra)) %in% outliers
-meta$outliers <- row.names(sample_data(ps_ra)) %in% outliers
+meta2$outliers <- row.names(sample_data(ps_ra)) %in% outliers
 adonis.3 = adonis(otu_table(ps_ra) ~ sample_data(ps_ra)$outliers)
 
+sink(file = "./Output/PermANOVA_PCA_outlier_community_differences.txt")
+adonis.3
+sink(NULL)
+
+
 samdat = as.data.frame(sample_data(ps_ra))
-mod2 = glm(outliers ~ Abaxial_Surface + Taxon + ALTITUDE + Collection_Site, family=binomial(link='logit'), data=meta)
-mod1 = aov(outliers ~ Abaxial_Surface, data=meta)
+mod2 = glm(outliers ~ Abaxial_Surface + Taxon + ALTITUDE + Collection_Site, family=binomial(link='logit'), data=meta2)
+mod1 = aov(outliers ~ Abaxial_Surface, data=meta2)
 # plot(mod1)
 
 sink("./Output/Outlier_Predictors.txt")
@@ -296,7 +417,6 @@ princomp$rotation[,2] > .4
 eigenvals(princomp)
 
 
-AIC(adonis.1,adonis.2)
 # Mantel Test ####
 
 spatial.dist = dist(cbind(ps_ra@sam_data$LONG, ps_ra@sam_data$LAT))
@@ -313,16 +433,38 @@ mantel.test = mantel.rtest(spatial.dist, comm.dist, nrepet = 9999)
  plot(mantel.test)
  dev.off()
 
+# Mantel Tests for each site
+sites = levels(ps_ra@sam_data$Collection_Site)
+
+for(i in sites){
+ps.temp = subset_samples(ps_ra, Collection_Site == i)
+  spatial.dist = dist(cbind(ps.temp@sam_data$LONG, ps.temp@sam_data$LAT))
+  comm.dist =   vegdist(as.matrix(ps.temp@otu_table))
+  
+  mantel.test = mantel.rtest(spatial.dist, comm.dist, nrepet = 9999)
+  
+  png(filename = paste0("./Output/mantel_plot_",i,".png"))
+  plot(mantel.test)
+  dev.off()
+  
+  sink("./Output/mantel_tests_each_site.txt", append = TRUE)
+  print(i)
+  print(mantel.test)
+  print("")
+  }
+
+ 
+ 
 # Rarefaction analyses ####
 # rarecurve(ps@otu_table,label = FALSE)
 
 # Diversity analyses ####
 
-shannon = diversity(ps@otu_table)
+shannon = diversity(ps_ra@otu_table)
 
  write.csv(shannon, "./Output/Shannon_Diversity_by_Tree.csv", quote = FALSE)
 
-div_aov = aov(shannon ~ ps@sam_data$Taxon * ps@sam_data$ALTITUDE)
+div_aov = aov(shannon ~ ps_ra@sam_data$Taxon * ps_ra@sam_data$ALTITUDE + ps_ra@sam_data$outliers + meta2$reps)
  sink(file = "./Output/Stat-Tests.txt", append = TRUE)
  print("")
  print("Shannon Diversity ANOVA - Taxon*Altitude")
@@ -334,6 +476,7 @@ ggplot(mapping = aes(x=ps@sam_data$Taxon,y=shannon, fill = ps@sam_data$Taxon)) +
   theme(axis.text.x = element_text(angle=90))
  ggsave("./Output/Shannon_Diversity_by_Taxon.png", dpi=300)
 
+ 
 
 # Model comparisons for Shannon diversity as dependent variable ####
 
@@ -351,28 +494,23 @@ m1 = aov(Shannon ~ Altitude+Taxon*Site+Elevation+Surface, data = mod)
 summary(m1)
 m2 = aov(Shannon ~ Surface+Taxon+Site, data = mod)
 summary(m2)
+m3 = aov(Shannon ~ Surface*Site*Altitude, data = mod)
+summary(m3)
 print("Stepwise AIC")
 stepAIC(m1,scope = ~Altitude+Taxon*Site+Elevation+Surface)
-print("Best model for Diversity looks to be ~Altitude+Taxon+Site")
 # sink(NULL)
 
 # Plot of Shannon vs altitude+taxon ####
 ggplot(mod, aes(x=Altitude,y=Shannon, color=Taxon)) +
   geom_point() + stat_smooth(se=FALSE, method = "lm") +
   theme_bw() + labs(x="Elevation (m)",y="Shannon Diversity")
- ggsave("Output/Diversity_vs_Altitude_w_Taxon.png", dpi=300)
+ggsave("Output/Diversity_vs_Altitude_w_Taxon.png", dpi=300)
+
+
+
+
+
+# Plot host specificity against elevation ####
 
 
  
- 
- 
- 
- 
- # Taxonomy tables and qualitative analyses ####
-taxtab = sort(table(tax_table(ps)), decreasing = TRUE)
-head(taxtab, 30)
-
-
-
-
-
