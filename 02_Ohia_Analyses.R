@@ -28,7 +28,7 @@ library(ade4)
 library(MASS)
 library(ggbiplot)
 library(fitdistrplus)
-
+library(FSA)
 
 # Load data ####
 ps = readRDS(file = "./Output/clean_phyloseq_object.RDS")
@@ -85,6 +85,20 @@ ggplot(meta2, aes(x=ALTITUDE,y=Proportion.HS)) +
   theme_bw() + labs(x="Elevation (m)",y="Proportion of host-specific taxa") +
   theme(legend.text = element_text(face="italic"))
 ggsave("./Output/Host-Specificity_elevation.png", dpi=300, height = 10, width = 12)
+
+# one for each collection site
+sites <- c("Aiea Ridge","Konahuanui","Kuliouou","Mt. Kaala")
+meta2$Collection_Site <- str_replace(meta2$Collection_Site,pattern = "`",replacement = "")
+
+for(i in sites){
+p=ggplot(meta2[meta2$Collection_Site == i,], aes(x=ALTITUDE,y=Proportion.HS)) +
+  geom_point(aes(color=Taxon)) + stat_smooth( se=FALSE) +
+  theme_bw() + labs(x="Elevation (m)",y="Proportion of host-specific taxa") +
+  theme(legend.text = element_text(face="italic")) + ggtitle(i)
+assign(i,p, envir = .GlobalEnv)
+}
+multiplots = arrangeGrob(`Aiea Ridge`,Konahuanui,Kuliouou,`Mt. Kaala`)
+ggsave(file="./Output/Host-Specificity_Elevation_By_Site.png",multiplots, dpi=300, width = 10, height = 6)
 
 ggplot(meta2, aes(x=ALTITUDE,y=Proportion.HS,color=Taxon)) +
   geom_point(aes(color=Taxon)) + stat_smooth( se=FALSE, method = "lm") +
@@ -194,7 +208,8 @@ tree_richness = rowSums(df_pa)
 
 write.csv(data.frame(TreeID = names(tree_richness), Richness = tree_richness), "./Output/Tree_Richness.csv", row.names = FALSE)
 
-  
+
+
 # heatmap of fungal orders for each sample
 ps_order = tax_glom(ps, "Order")
 ps_order = merge_samples(ps_order, "Taxon")
@@ -353,12 +368,12 @@ pcoaplot=plot_ordination(ps_ra, PCoA, color = "Taxon",shape = "Abaxial_Surface")
  ggsave(nmdsplot + stat_ellipse(alpha = 0.5), filename = "./Output/NMDS_taxon-and-leaftype_with_ellipses.png", dpi = 300)
 
 #permanova ####
-adonis.1 = adonis(otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon +
-                          sample_data(ps_ra)$Abaxial_Surface + 
-                          sample_data(ps_ra)$Collection_Site)
-adonis.2 = adonis(otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon *
-                    sample_data(ps_ra)$Abaxial_Surface * 
-                    sample_data(ps_ra)$Collection_Site)
+ adonis.1 = adonis(otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon +
+                     sample_data(ps_ra)$Abaxial_Surface + 
+                     sample_data(ps_ra)$Collection_Site)
+ adonis.2 = adonis(otu_table(ps_ra) ~ sample_data(ps_ra)$Taxon *
+                     sample_data(ps_ra)$Abaxial_Surface * 
+                     sample_data(ps_ra)$Collection_Site)
 
 sink("./Output/Permanova_tables.txt")
 print("additive model", quote = FALSE)
@@ -491,7 +506,7 @@ ggplot(mapping = aes(x=ps@sam_data$Taxon,y=shannon, fill = ps@sam_data$Taxon)) +
 meta = meta[meta$IDENT %in% sample_data(ps_ra)$IDENT,]
 meta$IDENT = factor(meta$IDENT)
 
-mod = data.frame(Shannon = shannon, Altitude = meta$ALTITUDE,Taxon=meta$Taxon,Site=meta$Collection_Site,
+mod = data.frame(Shannon = shannon, Altitude = meta$ALTITUDE,Taxon=meta$Taxon,Site=newsites,
            Elevation=meta$Elevation,Surface=meta$Abaxial_Surface)
 names(mod)
 
@@ -514,9 +529,38 @@ ggplot(mod, aes(x=Altitude,y=Shannon, color=Taxon)) +
 ggsave("Output/Diversity_vs_Altitude_w_Taxon.png", dpi=300)
 
 
+mod$Site
+# One for each site 
+ggplot(mod, aes(x=Altitude,y=Shannon, color=Taxon)) +
+  geom_point() + stat_smooth(se=FALSE, method = "lm") +
+  theme_bw() + labs(x="Elevation (m)",y="Shannon Diversity")
 
 
 
 # Richness
+names(meta2)
+meta2$Taxon
+meta2$Richness <- tree_richness
+meta2$Collection_Site <- newsites
+meta2$Collection_Site <- factor(meta2$Collection_Site)
 
- 
+
+richness.taxon <- meta2 %>% dplyr::group_by(as.character(Taxon)) %>%
+  dplyr::summarise(Mea.Richness = mean(Richness), StDev = sd(Richness)/sqrt(length(Richness)))
+
+
+ggplot(richness.taxon, aes(x=`as.character(Taxon)`,y=Mea.Richness)) +
+  geom_bar(stat="identity") + geom_errorbar(aes(ymin=Mea.Richness-StDev,ymax=Mea.Richness+StDev)) +
+  theme(axis.text.x = element_text(angle=30,hjust=1)) + labs(x="Taxon",y="Endophyte Richness")
+
+rich.mod1 = aov(Richness ~ Taxon, data = meta2)
+summary(rich.mod1)
+
+TukeyHSD(rich.mod1)
+
+k1 = kruskal.test(Richness ~ Taxon, data = meta2)
+dunnTest(Richness ~ Taxon, data = meta2, method = "bh")
+
+k2 = kruskal.test(Richness ~ Collection_Site, data = meta2)
+dunnTest(Richness ~ Collection_Site, data = meta2, method = "bh")
+k1

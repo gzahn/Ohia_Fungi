@@ -941,3 +941,159 @@ Alternative hypothesis: greater
      Std.Obs  Expectation     Variance 
  2.634093584 -0.001488984  0.002253000 
 [1] ""
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0025 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.9852627937 -0.0001290204  0.0041870727 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0322 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.206361e+00 1.986071e-05 2.163195e-03 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 4e-04 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+4.0301420162 0.0001121458 0.0031496724 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0084 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.5749444192 -0.0002456861  0.0023110392 
+[1] ""
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0017 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.9955253122 -0.0004783589  0.0041734868 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.0293 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.2567485841 -0.0009549936  0.0021071485 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 2e-04 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+4.0377266258 0.0005092292 0.0031268425 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.0083 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.5957393763 -0.0005082291  0.0022838161 
+[1] ""
+[1] "Aiea Ridge"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1930402 
+
+Based on 9999 replicates
+Simulated p-value: 0.0025 
+Alternative hypothesis: greater 
+
+      Std.Obs   Expectation      Variance 
+ 2.9483752028 -0.0004139383  0.0043051703 
+[1] ""
+[1] "Konahuanui"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1026381 
+
+Based on 9999 replicates
+Simulated p-value: 0.031 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+ 2.230611363 -0.000367674  0.002132432 
+[1] ""
+[1] "Kuliouou"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.2262915 
+
+Based on 9999 replicates
+Simulated p-value: 1e-04 
+Alternative hypothesis: greater 
+
+    Std.Obs Expectation    Variance 
+4.027785961 0.000766808 0.003135130 
+[1] ""
+[1] "Mt. Ka`ala"
+Monte-Carlo test
+Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
+
+Observation: 0.1235403 
+
+Based on 9999 replicates
+Simulated p-value: 0.01 
+Alternative hypothesis: greater 
+
+     Std.Obs  Expectation     Variance 
+2.5515191916 0.0002568416 0.0023345975 
+[1] ""
