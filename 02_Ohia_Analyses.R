@@ -29,6 +29,8 @@ library(MASS)
 library(ggbiplot)
 library(fitdistrplus)
 library(FSA)
+# Note: the plyr package must be installed, but should not be loaded
+
 
 # Load data ####
 ps = readRDS(file = "./Output/clean_phyloseq_object.RDS")
@@ -59,16 +61,15 @@ abundant.1host.taxa = which(taxa_sums(ps)[host.specif == 1] > 1000)
 host.specific.taxa = as.data.frame(tax_table(ps)[abundant.1host.taxa]) # names of taxa found on only one host with more than 1000 abs. abundance
 write.csv(host.specific.taxa, "./Output/host-sepcific_taxa.csv",quote = FALSE,row.names = FALSE)
 
-# count number of taxa that are host-specific in each sample
+
 hstaxa = specnumber(otu_table(ps), sample_data(ps)$Taxon,2)
 hstaxa = which(hstaxa == 1)
 hsotus = otu_table(ps)[,hstaxa]
-heatmap(hsotus)
 hsotus[hsotus > 0] <- 1
 
 # Plot host specificity against ALTITUDE
 # add column to meta that shows number of host-specific taxa found in each sample
-row.names(hsotus)
+
 meta2 = meta
 meta2 = (meta2[meta2$IDENT %in% names(hsotus@.Data[,2]),])
 meta2 = arrange(meta2,IDENT)
@@ -77,7 +78,7 @@ meta2 = arrange(meta2,IDENT)
 hs.count = rowSums(hsotus)
 meta2$No.HS_Taxa = hs.count
 meta2$Proportion.HS = meta2$No.HS_Taxa / vegan::specnumber(otu_table(ps))
-meta2$Proportion.HS.total = meta2$Proportion.HS * rowSums(otu_table(ps))
+meta2$Proportion.HS.total = meta2$Proportion.HS / rowSums(otu_table(ps))
 
 
 ggplot(meta2, aes(x=ALTITUDE,y=Proportion.HS)) +
@@ -106,15 +107,17 @@ ggplot(meta2, aes(x=ALTITUDE,y=Proportion.HS,color=Taxon)) +
   theme(legend.text = element_text(face="italic"))
 ggsave("./Output/Host-Specificity_elevation2.png", dpi=300, height = 10, width = 12)
 
-# anova does tree taxon affect number of host-specific fungi found?
+# anova ... does tree taxon affect number of host-specific fungi found?
 hsotus = hsotus[,taxa_sums(hsotus) > 1]
+
 sample_sums(hsotus)
-meta2 = meta[meta$IDENT %in% sample_data(ps_ra)$IDENT,]
+# meta2 = meta2[meta$IDENT %in% sample_data(ps)$IDENT,]
 
 # get number of reps in each taxon
 tree.reps = meta2 %>%
   dplyr::group_by(Taxon) %>%
   dplyr::summarise(N=n())
+tree.reps=tree.reps[1:8,]
 
 meta2$reps = as.numeric(as.character(plyr::mapvalues(meta2$Taxon, from = tree.reps$Taxon, to = tree.reps$N)))
 
@@ -122,11 +125,19 @@ meta2$reps = as.numeric(as.character(plyr::mapvalues(meta2$Taxon, from = tree.re
 plotdist(sqrt(sample_sums(hsotus)), histo = TRUE, demp = TRUE)
 descdist(sqrt(sample_sums(hsotus)), discrete = FALSE, boot = 1000)
 summary(fitdist(sqrt(sample_sums(hsotus)), "norm"))
+descdist(sqrt(meta2$Proportion.HS),discrete = FALSE,boot = 1000)
+
 
 # Make ANOVA model with sq-rt transformed data 
 mod = aov(sqrt(sample_sums(hsotus)) ~ sample_data(ps)$ALTITUDE * sample_data(ps)$Taxon * meta2$reps)
 summary(mod) # no...almost?
 
+as.character(sample_data(ps)$IDENT)
+as.character(meta2$IDENT)
+
+meta2 = arrange(meta2,IDENT)
+mod2 <- aov(meta2$Proportion.HS ~ sample_data(ps)$ALTITUDE * sample_data(ps)$Taxon * meta2$reps)
+summary(mod2)
 
 
 norm.fit = fitdistr(sample_sums(hsotus), "normal")
@@ -175,11 +186,6 @@ head(sample_data(psm))
 # relative abundance transformation ####
 psm_ra <- transform_sample_counts(psm, function(x) x / sum(x) )
 ps_ra <- transform_sample_counts(ps, function(x) x / sum(x) )
-
-
-# combine sites Wiliwilinui and Kuliouou
-newsites = plyr::mapvalues(ps@sam_data$Collection_Site, from = "Wiliwilinui", to = "Kuliouou")
-ps@sam_data$Collection_Site <- newsites
 
 
 # merge again by site
@@ -276,7 +282,7 @@ ggsave("./Output/BarPlot_Fungal_Class_by_Site.png", dpi = 300, height = 8, width
 plot_bar(psm_ra, fill = "Phylum",x="Taxon") +
   geom_bar(stat = "identity") + 
   coord_flip()  + facet_wrap(~(sample_data(psm_ra)$Abaxial_Surface)) +
-  labs(x="Site",y="Relative Abundance") + lims(y=c(0,1)) + theme_bw()
+  labs(x="Ohia Taxon",y="Relative Abundance") + lims(y=c(0,1)) + theme_bw()
 ggsave("./Output/BarPlot_Fungal_Phylum_by_Tree_and_Surface.png", height = 8, width = 12,dpi=300)
 
 names(sample_data(ps))

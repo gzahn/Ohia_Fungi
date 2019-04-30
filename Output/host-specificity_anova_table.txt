@@ -8,14 +8,13 @@
 [1] Model includes Ohia taxon, Altitude, and number of replicate trees.
 [1] ""
 [1] 
-                                                          Df Sum Sq Mean Sq F value Pr(>F)  
-sample_data(ps)$ALTITUDE                                   1   0.06  0.0555   0.061 0.8060  
-sample_data(ps)$Taxon                                      7   9.80  1.3996   1.531 0.1681  
-meta2$reps                                                 1   0.44  0.4430   0.485 0.4882  
-sample_data(ps)$ALTITUDE:sample_data(ps)$Taxon             7  17.61  2.5157   2.752 0.0127 *
-sample_data(ps)$ALTITUDE:meta2$reps                        1   0.45  0.4515   0.494 0.4842  
-sample_data(ps)$Taxon:meta2$reps                           6   8.78  1.4629   1.600 0.1573  
-sample_data(ps)$ALTITUDE:sample_data(ps)$Taxon:meta2$reps  6   3.69  0.6147   0.672 0.6721  
-Residuals                                                 83  75.87  0.9141                 
+                                               Df Sum Sq Mean Sq F value  Pr(>F)   
+sample_data(ps)$ALTITUDE                        1   0.06  0.0555   0.061 0.80604   
+sample_data(ps)$Taxon                           7   9.80  1.3996   1.530 0.16682   
+meta2$reps                                      1   0.56  0.5647   0.617 0.43408   
+sample_data(ps)$ALTITUDE:sample_data(ps)$Taxon  7  18.89  2.6990   2.950 0.00776 **
+sample_data(ps)$ALTITUDE:meta2$reps             1   0.03  0.0311   0.034 0.85423   
+sample_data(ps)$Taxon:meta2$reps                2   2.27  1.1349   1.241 0.29396   
+Residuals                                      93  85.08  0.9148                   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

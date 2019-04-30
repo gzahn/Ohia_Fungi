@@ -180,15 +180,14 @@ seqs <- getSequences(seqtab.nochim)
 # Hand off to Phyloseq ####
 
 seqtab.nochim = readRDS(file = "./Output/clean_dada2_seqtable.RDS")
-
 taxa = readRDS(file = "./Output/RDP_Taxonomy_from_dada2.RDS")
-
+meta = read.csv("./metadata.csv")
 unique(taxa[,2])
 
 ps <- phyloseq(otu_table(seqtab.nochim, taxa_are_rows=FALSE), 
                sample_data(meta), 
                tax_table(taxa))
-
+row.names(seqtab.nochim)
 
 # Save RDS object for Phyloseq
 saveRDS(ps, file = "./Output/clean_phyloseq_object.RDS")
