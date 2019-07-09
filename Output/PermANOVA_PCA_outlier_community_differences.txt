@@ -8,6 +8,6 @@ Number of permutations: 999
 Terms added sequentially (first to last)
 
                              Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)
-sample_data(ps_ra)$outliers   1     0.430 0.42983 0.90481 0.00809  0.677
+sample_data(ps_ra)$outliers   1     0.430 0.42983 0.90481 0.00809  0.655
 Residuals                   111    52.731 0.47505         0.99191       
 Total                       112    53.160                 1.00000       

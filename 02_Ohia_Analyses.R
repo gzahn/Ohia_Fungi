@@ -188,6 +188,19 @@ psm_ra <- transform_sample_counts(psm, function(x) x / sum(x) )
 ps_ra <- transform_sample_counts(ps, function(x) x / sum(x) )
 
 
+# re-order for updated plots of tree taxa
+reordered_taxa <- psm_ra@sam_data$Taxon[c(4,3,8,5,2,6,7,1)]
+psm_ra@sam_data$Taxon
+psm_ra@sam_data$TaxonCode <- c("A","F","G","I","L","B","R","T")
+
+sample_data(psm_ra)[c(4,3,8,5,2,6,7,1),]
+
+
+# psm_ra@sam_data$Taxon <- factor(psm_ra@sam_data$Taxon)
+# psm_ra@sam_data$Taxon <- factor(psm_ra@sam_data$Taxon, levels = reordered_taxa)
+# c("I","G","T","L","F","B","R","A")
+# psm_ra@sam_data$Taxon
+
 # merge again by site
 # Merge Samples by . . .    ####
 psm_site = merge_samples(ps, "Collection_Site")
@@ -241,7 +254,7 @@ heatmap(as.matrix(df_order), labCol = orderlabs, col = gray.colors(50), Colv = N
         cexRow = 2)
 dev.off()
 
- 
+
  
 # heatmap of fungal genera for each sample
 ps_genus = tax_glom(ps, "Genus")
@@ -258,25 +271,52 @@ dev.off()
 
 # Bar plot of relative abundance, split by taxon ####
 
-plot_bar(psm_ra, fill = "Phylum",x="Taxon") +
+plot_bar(psm_ra, fill = "Phylum",x="TaxonCode") +
   geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
-  labs(x="Ohia Taxon",y="Relative Abundance")+ theme_bw()
+  labs(x="Ohia taxon",y="Relative abundance")+ theme_bw() + 
+  scale_x_discrete(limits = c("A","R","B","F","L","T","G","I")) + theme(axis.text = element_text(size=12,face="bold"),
+                                                                        axis.title = element_text(size=16,face="bold"),
+                                                                        legend.title = element_text(size=12,face="bold"),
+                                                                        legend.text = element_text(size=10))
 ggsave("./Output/BarPlot_Fungal_Phylum_by_Tree.png", height = 8, width = 12, dpi=300)
 
-# Same, but merged by site
-plot_bar(psm_ra_site, fill = "Phylum",x="Collection_Site") +
-  geom_bar(stat = "identity") + 
-  scale_x_discrete(limit = c("Kuliouou","Konahuanui","Aiea Ridge","Mt. Ka`ala")) +
-  coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
-  labs(x="Collection Site",y="Relative Abundance")+ theme_bw()
-ggsave("./Output/BarPlot_Fungal_Phylum_by_Site.png", dpi = 300)
 
-plot_bar(psm_ra_site, fill = "Class",x="Collection_Site") +
+plot_bar(psm_ra, fill = "Class",x="TaxonCode") +
+  geom_bar(stat = "identity") + coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Ohia taxon",y="Relative abundance")+ theme_bw() + 
+  scale_x_discrete(limits = c("A","R","B","F","L","T","G","I")) + theme(axis.text = element_text(size=12,face="bold"),
+                                                                        axis.title = element_text(size=16,face="bold"),
+                                                                        legend.title = element_text(size=12,face="bold"),
+                                                                        legend.text = element_text(size=10))
+ggsave("./Output/Barplot_Fungal_Class_by_Tree.png",height = 8,width = 12,dpi=300)
+
+
+
+sample_data(psm_ra_site)$SiteCode <- c("Aiea","KHN","WWNKOO","MK")
+# Same, but merged by site
+plot_bar(psm_ra_site, fill = "Phylum",x="SiteCode") +
   geom_bar(stat = "identity") + 
-  scale_x_discrete(limit = c("Kuliouou","Konahuanui","Aiea Ridge","Mt. Ka`ala")) +
+  scale_x_discrete(limit = c("WWNKOO","KHN","Aiea","MK")) +
   coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
-  labs(x="Collection Site",y="Relative Abundance") + theme_bw()
-ggsave("./Output/BarPlot_Fungal_Class_by_Site.png", dpi = 300, height = 8, width = 12)
+  labs(x="Collection site",y="Relative abundance")+ theme_bw() + theme(axis.text = element_text(size=12,face="bold"),
+                                                                       axis.title = element_text(size=16,face="bold"),
+                                                                       legend.title = element_text(size=12,face="bold"),
+                                                                       legend.text = element_text(size=10))
+
+ggsave("./Output/BarPlot_Fungal_Phylum_by_Site.png", dpi = 300,height = 8,width = 8)
+
+
+
+plot_bar(psm_ra_site, fill = "Class",x="SiteCode") +
+  geom_bar(stat = "identity") + 
+  scale_x_discrete(limit = c("WWNKOO","KHN","Aiea","MK")) +
+  coord_flip()  + #facet_wrap(~levels(sample_data(ps)$Structure)) +
+  labs(x="Collection site",y="Relative abundance")+ theme_bw() + theme(axis.text = element_text(size=12,face="bold"),
+                                                                       axis.title = element_text(size=16,face="bold"),
+                                                                       legend.title = element_text(size=12,face="bold"),
+                                                                       legend.text = element_text(size=10))
+
+ggsave("./Output/BarPlot_Fungal_Class_by_Site.png", dpi = 300, height = 8, width = 8)
 
 
 plot_bar(psm_ra, fill = "Phylum",x="Taxon") +
@@ -294,24 +334,37 @@ order_summary = summarize_taxa(ps,"Order","Collection_Site")
 order_summary = order_summary[order_summary$Order != "NA",]
 # reorder
 setorder(order_summary, -meanRA)
+
+# rename factor levels and reorder for plotting
+SiteCode = plyr::mapvalues(order_summary$Collection_Site,from=levels(order_summary$Collection_Site),to=c("Aiea Ridge", "Konahuanui", "WWNKOO", "Mt. Ka`ala"))
+levels(SiteCode) <- c("Mt. Ka`ala","Aiea Ridge", "Konahuanui", "WWNKOO")
+order_summary$SiteCode <- SiteCode
+
 # plot
-ggplot(order_summary, aes(x= meanRA, y=Order, facet=Collection_Site)) +
-  geom_point() + geom_errorbarh(aes(xmin=meanRA-sdRA,xmax=meanRA+sdRA)) + labs(x="Relative Abundance") +
-  facet_grid(~Collection_Site) +
-  theme_bw() + theme(panel.spacing = unit(2, "lines"))
-ggsave("./Output/Summarized_taxa_Order_by_Site.png", height = 8, width = 10, dpi = 300)
+ggplot(order_summary, aes(x= meanRA, y=Order, facet=SiteCode)) +
+  geom_point() + geom_errorbarh(aes(xmin=meanRA-sdRA,xmax=meanRA+sdRA)) + labs(x="Relative abundance") +
+  facet_grid(~SiteCode) +
+  theme_bw() + theme(panel.spacing = unit(2, "lines"),
+                     axis.title = element_text(size=16,face="bold"))
+
+ggsave("./Output/Summarized_taxa_Order_by_Site.png", height = 8, width = 12, dpi = 300)
 
 order_summary = summarize_taxa(ps,"Order","Taxon")
 # Remove NAs
 order_summary = order_summary[order_summary$Order != "NA",]
 # reorder
 setorder(order_summary, -meanRA)
+
+order_summary$TaxaCode <- plyr::mapvalues(order_summary$Taxon,from=levels(order_summary$Taxon),to=c("A","F","G","I","L","B","R","T"))
+levels(order_summary$TaxaCode) <- c("I","G","T","F","L","B","R","A")
+
 # plot
-ggplot(order_summary, aes(x= meanRA, y=Order, facet=Taxon)) +
-  geom_point() + geom_errorbarh(aes(xmin=meanRA-sdRA,xmax=meanRA+sdRA)) + labs(x="Relative Abundance") +
-  facet_grid(~Taxon) +
-  theme_bw() + theme(panel.spacing = unit(0.5, "lines"))
-ggsave("./Output/Summarized_taxa_Order_by_Taxon.png", height = 8, width = 10, dpi = 300)
+ggplot(order_summary, aes(x= meanRA, y=Order, facet=TaxaCode)) +
+  geom_point() + geom_errorbarh(aes(xmin=meanRA-sdRA,xmax=meanRA+sdRA)) + labs(x="Relative abundance") +
+  facet_grid(~TaxaCode) +
+  theme_bw() + theme(panel.spacing = unit(0.5, "lines"),
+                     axis.title = element_text(size=16,face="bold"))
+ggsave("./Output/Summarized_taxa_Order_by_Taxon.png", height = 8, width = 12, dpi = 300)
 
 order_summary = summarize_taxa(ps,"Order","Elevation")
 # Remove NAs
@@ -338,6 +391,9 @@ write.csv(taxtable[order(taxtable$Freq, decreasing = TRUE),],
 
 # Ordination ####
 # Phyloseq method trying several ordination methods
+sample_data(ps_ra)$TaxaCode <- plyr::mapvalues(sample_data(ps_ra)$Taxon,from=levels(sample_data(ps_ra)$Taxon),to=c("A","F","G","I","L","B","R","T"))
+levels(sample_data(ps_ra)$TaxaCode)<- c("I","G","T","F","L","B","R","A")
+
 NMDS = ordinate(ps_ra, method = "NMDS")
 DCA = ordinate(ps_ra, method = "DCA")
 CCA = ordinate(ps_ra, method = "CCA")
@@ -346,14 +402,14 @@ MDS = ordinate(ps_ra, method = "MDS")
 PCoA = ordinate(ps_ra, method = "PCoA")
 
 # Plot them  ####
-nmdsplot=plot_ordination(ps_ra, NMDS, color = "Taxon",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Taxon",shape="Leaf Type") + ggtitle("NMDS")
-dcaplot=plot_ordination(ps_ra, DCA, color = "Taxon",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Taxon",shape="Leaf Type") + ggtitle("DCA") + theme(legend.position = "none")
-ccaplot=plot_ordination(ps_ra, CCA, color = "Taxon",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Taxon",shape="Leaf Type") + ggtitle("CCA")+ theme(legend.position = "none")
-rdaplot=plot_ordination(ps_ra, RDA, color = "Taxon",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Taxon",shape="Leaf Type") + ggtitle("RDA")+ theme(legend.position = "none")
-mdsplot=plot_ordination(ps_ra, MDS, color = "Taxon",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Taxon",shape="Leaf Type") + ggtitle("MDS")+ theme(legend.position = "none")
-pcoaplot=plot_ordination(ps_ra, PCoA, color = "Taxon",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Taxon",shape="Leaf Type") + ggtitle("PCoA")+ theme(legend.position = "none")
+nmdsplot=plot_ordination(ps_ra, NMDS, color = "TaxaCode",shape = "Abaxial_Surface") + theme_minimal() + labs(color="Taxon",shape="Leaf Type") + ggtitle("NMDS")
+dcaplot=plot_ordination(ps_ra, DCA, color = "TaxaCode",shape = "Abaxial_Surface") + theme_minimal() + labs(color="TaxaCode",shape="Leaf Type") + ggtitle("DCA") + theme(legend.position = "none")
+ccaplot=plot_ordination(ps_ra, CCA, color = "TaxaCode",shape = "Abaxial_Surface") + theme_minimal() + labs(color="TaxaCode",shape="Leaf Type") + ggtitle("CCA")+ theme(legend.position = "none")
+rdaplot=plot_ordination(ps_ra, RDA, color = "TaxaCode",shape = "Abaxial_Surface") + theme_minimal() + labs(color="TaxaCode",shape="Leaf Type") + ggtitle("RDA")+ theme(legend.position = "none")
+mdsplot=plot_ordination(ps_ra, MDS, color = "TaxaCode",shape = "Abaxial_Surface") + theme_minimal() + labs(color="TaxaCode",shape="Leaf Type") + ggtitle("MDS")+ theme(legend.position = "none")
+pcoaplot=plot_ordination(ps_ra, PCoA, color = "TaxaCode",shape = "Abaxial_Surface") + theme_minimal() + labs(color="TaxaCode",shape="Leaf Type") + ggtitle("PCoA")+ theme(legend.position = "none")
 
- png(filename = "./Output/Ordination_Plots_taxon-and-leaftype.png",height = 1000,width = 1000,res = 100)
+ png(filename = "./Output/Ordination_Plots_taxon-and-leaftype_renamed-taxa.png",height = 1000,width = 1000,res = 100)
  grid.arrange(nmdsplot,dcaplot,ccaplot,rdaplot,mdsplot,pcoaplot)
  dev.off()
 
@@ -499,10 +555,22 @@ div_aov = aov(shannon ~ ps_ra@sam_data$Taxon * ps_ra@sam_data$ALTITUDE + ps_ra@s
  summary(div_aov)
  sink(NULL)
 
-ggplot(mapping = aes(x=ps@sam_data$Taxon,y=shannon, fill = ps@sam_data$Taxon)) +
-  geom_boxplot() + theme_minimal() + labs(x="Taxon", fill="Taxon",y="Shannon Diversity") +
-  theme(axis.text.x = element_text(angle=90))
- ggsave("./Output/Shannon_Diversity_by_Taxon.png", dpi=300)
+shannon.df = cbind(shannon,sample_data(ps_ra)) 
+ 
+shannon.df$TaxaCode <- plyr::mapvalues(shannon.df$Taxon,from=levels(shannon.df$Taxon),to=c("A","F","G","I","L","B","R","T"))
+# levels(shannon.df$TaxaCode) <- c("I","G","T","F","L","B","R","A")
+ 
+row.names(sample_data(ps_ra)[sample_data(ps_ra)$Taxon == "M.p. var. fakerug",])
+mean(shannon[row.names(sample_data(ps_ra)[sample_data(ps_ra)$Taxon == "M.p. var. fakerug",])])
+
+
+ggplot(shannon.df, mapping = aes(x=TaxaCode,y=shannon, fill = TaxaCode)) +
+  geom_boxplot() + theme_minimal() + labs(x="Taxon", fill="Taxon",y="Shannon diversity") +
+  scale_x_discrete(limits = c("I","G","T","L","F","B","R","A")) +
+  theme(axis.title = element_text(size=16,face = "bold"),
+        axis.text = element_text(size=12,face="bold"),
+        legend.title = element_text(size=12,face="bold"))
+ggsave("./Output/Shannon_Diversity_by_Taxon.png", dpi=300)
 
  
 
@@ -554,10 +622,16 @@ meta2$Collection_Site <- factor(meta2$Collection_Site)
 richness.taxon <- meta2 %>% dplyr::group_by(as.character(Taxon)) %>%
   dplyr::summarise(Mea.Richness = mean(Richness), StDev = sd(Richness)/sqrt(length(Richness)))
 
+richness.taxon$TaxaCode <- c("A","F","G","I","L","B","R","T")
 
-ggplot(richness.taxon, aes(x=`as.character(Taxon)`,y=Mea.Richness)) +
-  geom_bar(stat="identity") + geom_errorbar(aes(ymin=Mea.Richness-StDev,ymax=Mea.Richness+StDev)) +
-  theme(axis.text.x = element_text(angle=30,hjust=1)) + labs(x="Taxon",y="Endophyte Richness")
+
+ggplot(richness.taxon, aes(x=TaxaCode,y=Mea.Richness)) +
+  geom_bar(stat="identity") + geom_errorbar(aes(ymin=Mea.Richness-StDev,ymax=Mea.Richness+StDev)) + theme_bw() +
+  theme(axis.title = element_text(size=16,face="bold"),axis.text = element_text(size = 12,face="bold")) + 
+  labs(x="Taxon",y="Endophyte richness") +
+  scale_x_discrete(limits = c("I","G","T","L","F","B","R","A"))
+ggsave("./Output/Endophyte_Richness_by_Taxa-relabeled.png",dpi=300)
+
 
 rich.mod1 = aov(Richness ~ Taxon, data = meta2)
 summary(rich.mod1)
