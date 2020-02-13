@@ -16,4 +16,4 @@ ___
 | taxonomy/             	| Custom ITS1 taxonomic database, UNITE + Outgroups                                                                               	|
 | output/               	| All statistical tables and figures                                                                                              	|
 
-### Raw sequence data can be found on the SRA at Accession: ???
+### Raw sequence data can be found on the SRA at Accession: [PRJNA606574](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA606574)
