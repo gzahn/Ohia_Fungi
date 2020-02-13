@@ -10,7 +10,7 @@ ___
 |  File/Directory       	|  Contents                                                                                                                       	|
 |-----------------------	|---------------------------------------------------------------------------------------------------------------------------------	|
 | metadata.csv          	| Sample metadata                                                                                                                 	|
-| 01_Process_Raw_Data.R 	|  Process raw Ion-Torrent reads, error correction, contaminant removal, exact sequence variant calling, generate phyloseq object 	|
+| 01_Process_Raw_Data.R 	|  Process raw Ion-Torrent reads, error correction, contaminant removal, exact sequence variant calling, generate sequence table 	|
 | 02_Ohia_Analyses.R    	| Data analyses, statistical tests, figure generation                                                                             	|
 | Ohia_Fungi.Rproj      	| R-Project file                                                                                                                  	|
 | taxonomy/             	| Custom ITS1 taxonomic database, UNITE + Outgroups                                                                               	|
