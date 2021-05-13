@@ -29,8 +29,10 @@ library(MASS)
 library(ggbiplot)
 library(fitdistrplus)
 library(FSA)
-# Note: the plyr package must be installed, but should not be loaded
+library(indicspecies)
 
+
+# Note: the plyr package must be installed, but should not be loaded
 
 # Load data ####
 ps = readRDS(file = "./Output/clean_phyloseq_object.RDS")
@@ -60,6 +62,19 @@ dev.off()
 abundant.1host.taxa = which(taxa_sums(ps)[host.specif == 1] > 1000)
 host.specific.taxa = as.data.frame(tax_table(ps)[abundant.1host.taxa]) # names of taxa found on only one host with more than 1000 abs. abundance
 write.csv(host.specific.taxa, "./Output/host-sepcific_taxa.csv",quote = FALSE,row.names = FALSE)
+
+
+# indicspecies analysis ... are results similar?
+
+asv <- ps@otu_table %>% as.data.frame()
+taxa <- ps@sam_data$Taxon %>% unique %>% as.character()
+
+for(i in taxa){
+  indic <- indicators(asv,cluster=ps@sam_data$Taxon,group=i, enableFixed = TRUE,max.order = 1)
+  indic <- indic$group.vec
+  assign(paste0("indic.",i),value = indic,envir = .GlobalEnv)
+}
+
 
 
 hstaxa = specnumber(otu_table(ps), sample_data(ps)$Taxon,2)
@@ -437,6 +452,8 @@ pcoaplot=plot_ordination(ps_ra, PCoA, color = "TaxaCode",shape = "Abaxial_Surfac
                      sample_data(ps_ra)$Abaxial_Surface * 
                      sample_data(ps_ra)$Collection_Site)
 
+ 
+ 
 sink("./Output/Permanova_tables.txt")
 print("additive model", quote = FALSE)
 (adonis.1)
@@ -595,7 +612,7 @@ summary(m3)
 print("Stepwise AIC")
 stepAIC(m1,scope = ~Altitude+Taxon*Site+Elevation+Surface)
 sink(NULL)
-
+?stepAIC
 # Plot of Shannon vs altitude+taxon ####
 ggplot(mod, aes(x=Altitude,y=Shannon, color=Taxon)) +
   geom_point() + stat_smooth(se=FALSE, method = "lm") +
